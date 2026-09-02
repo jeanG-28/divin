@@ -9,6 +9,60 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+/* ---------------- installation (ajout a l'ecran d'accueil) ---------------- */
+
+var invitePrompt = null;
+
+function enModeInstalle() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+function afficherBanniereInstallation(contenu) {
+  if (enModeInstalle() || localStorage.getItem('divin.installMasque') === '1') return;
+  if (document.getElementById('divin-installer')) return;
+  
+  var decale = document.querySelector('.nav') ? 'calc(var(--nav-h, 62px) + 14px + env(safe-area-inset-bottom,0px))' : 'calc(14px + env(safe-area-inset-bottom,0px))';
+  var b = document.createElement('div');
+  b.id = 'divin-installer';
+  b.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);width:min(calc(100% - 28px), 400px);bottom:' + decale + ';z-index:98;display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:12px;background:#1C1517;border:1px solid #2C2729;box-shadow:0 10px 30px rgba(0,0,0,.5);';
+  b.innerHTML =
+    '<img src="/icone-180.png" width="34" height="34" alt="" style="border-radius:8px;flex:0 0 auto;">' +
+    '<div style="flex:1 1 auto;font-size:12.5px;line-height:1.4;color:#EFE9EA;">' + contenu.texte + '</div>' +
+    (contenu.bouton ? '<button id="divin-installer-go" style="flex:0 0 auto;min-height:38px;padding:0 14px;border-radius:8px;background:#C08B77;color:#1A1214;font-size:13px;font-weight:700;">' + contenu.bouton + '</button>' : '') +
+    '<button id="divin-installer-fermer" aria-label="Fermer" style="flex:0 0 auto;width:28px;height:28px;color:#9A9093;font-size:16px;">x</button>';
+  document.body.appendChild(b);
+  
+  document.getElementById('divin-installer-fermer').addEventListener('click', function () {
+    localStorage.setItem('divin.installMasque', '1');
+    b.remove();
+  });
+  
+  var goBtn = document.getElementById('divin-installer-go');
+  if (goBtn) {
+    goBtn.addEventListener('click', function () {
+      if (!invitePrompt) return;
+      invitePrompt.prompt();
+      invitePrompt.userChoice.finally(function () {
+        invitePrompt = null;
+        b.remove();
+      });
+    });
+  }
+}
+
+window.addEventListener('beforeinstallprompt', function (e) {
+  e.preventDefault();
+  invitePrompt = e;
+  afficherBanniereInstallation({ texte: 'Installez Divin sur votre ecran d accueil pour un acces plus rapide.', bouton: 'Installer' });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  var estIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  if (estIOS && !invitePrompt) {
+    afficherBanniereInstallation({ texte: 'Pour installer Divin : appuyez sur Partager, puis Sur l ecran d accueil.', bouton: null });
+  }
+});
+
 /* ---------------- état ---------------- */
 
 function lireProfil() {
