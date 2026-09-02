@@ -1,7 +1,7 @@
-// Divin — service worker : permet l'installation et l'usage hors-ligne.
-// Stratégie : "stale-while-revalidate" pour tout ce qui vient du site lui-même.
+// Divin - service worker : permet l'installation et l'usage hors-ligne.
+// Strategie : "stale-while-revalidate" pour tout ce qui vient du site lui-meme.
 
-var CACHE = 'divin-v1';
+var CACHE = 'divin-v2';
 
 var COQUILLE = [
   '/',
@@ -36,11 +36,9 @@ self.addEventListener('install', function (evenement) {
   self.skipWaiting();
   evenement.waitUntil(
     caches.open(CACHE).then(function (cache) {
-      return cache.addAll(COQUILLE).catch(function () {
-        // certains fichiers peuvent manquer selon le déploiement : on ignore, pas bloquant
-      });
+      return cache.addAll(COQUILLE).catch(function () {});
     })
-  );
+    );
 });
 
 self.addEventListener('activate', function (evenement) {
@@ -48,18 +46,15 @@ self.addEventListener('activate', function (evenement) {
     caches.keys().then(function (noms) {
       return Promise.all(
         noms.filter(function (nom) { return nom !== CACHE; })
-            .map(function (nom) { return caches.delete(nom); })
-      );
+        .map(function (nom) { return caches.delete(nom); })
+        );
     }).then(function () { return self.clients.claim(); })
-  );
+    );
 });
 
 self.addEventListener('fetch', function (evenement) {
   var requete = evenement.request;
-
-  // seulement les requêtes GET, même origine (pas les polices Google, pas les POST)
   if (requete.method !== 'GET' || new URL(requete.url).origin !== self.location.origin) return;
-
   evenement.respondWith(
     caches.open(CACHE).then(function (cache) {
       return cache.match(requete).then(function (reponseCache) {
@@ -75,5 +70,5 @@ self.addEventListener('fetch', function (evenement) {
         return reponseCache || recuperation;
       });
     })
-  );
+    );
 });
