@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E0C0D">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex, nofollow">
+<title>Reprendre le projet · Divin</title>
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .doc{max-width:720px;margin:0 auto;padding:34px 22px 80px}
+  .doc h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:34px;line-height:1.15;color:var(--texte);margin:0 0 10px}
+  .doc .chapo{color:var(--texte-3);font-size:15px;line-height:1.7;margin:0 0 34px}
+  .doc h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:25px;color:var(--accent-clair);margin:44px 0 6px;line-height:1.2}
+  .doc h2 .n{display:inline-block;font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;color:var(--fond);background:var(--accent);
+             border-radius:99px;width:24px;height:24px;line-height:24px;text-align:center;margin-right:10px;vertical-align:2px}
+  .doc h3{font-family:'Manrope',sans-serif;font-size:15px;font-weight:700;color:var(--texte);margin:26px 0 6px}
+  .doc p{color:var(--texte-2);font-size:15px;line-height:1.75;margin:0 0 14px}
+  .doc ul,.doc ol{color:var(--texte-2);font-size:15px;line-height:1.75;margin:0 0 16px;padding-left:22px}
+  .doc li{margin-bottom:8px}
+  .doc code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--surface-2);
+            color:var(--accent-clair);padding:2px 6px;border-radius:4px}
+  .doc pre{background:var(--surface);border:1px solid var(--trait-fort);border-radius:10px;padding:14px 16px;
+           overflow-x:auto;margin:0 0 18px}
+  .doc pre code{background:none;padding:0;color:var(--texte);font-size:13px;line-height:1.7;display:block;white-space:pre}
+  .doc .note{border-left:2px solid var(--accent);background:rgba(192,139,119,.07);padding:14px 16px;border-radius:0 8px 8px 0;margin:0 0 20px}
+  .doc .note p{margin:0;color:var(--texte-2);font-size:14px}
+  .doc .note b{color:var(--texte)}
+  .doc .sep{height:1px;background:var(--trait-fort);margin:40px 0}
+  .doc .fin{color:var(--texte-4);font-size:13px;line-height:1.7;margin-top:44px}
+  .doc a{color:var(--accent-clair)}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <img src="/badge.png" width="86" height="86" alt="Divin" style="display:block;margin:0 auto 26px;">
+
+  <h1>Reprendre Divin sur vos comptes</h1>
+  <p class="chapo">Tout le travail fait jusqu'ici vous appartient et peut vivre chez vous, sur votre ordinateur, sur votre compte, sans dépendre de personne. Cette page explique comment, pas à pas. Comptez une petite heure la première fois.</p>
+
+  <div class="note">
+    <p><b>Ce qu'il faut savoir avant de commencer.</b> Divin est un site : chaque écran est un fichier. Il n'y a aucun programme à compiler, aucune base de données à installer. Modifier le site, c'est ouvrir un fichier, changer du texte, enregistrer.</p>
+  </div>
+
+  <h2><span class="n">1</span>Récupérer le projet</h2>
+  <p>Vous avez reçu un fichier <code>divin.zip</code>. Enregistrez-le sur votre ordinateur, puis décompressez-le (clic droit, « Extraire tout »). Vous obtenez un dossier <code>divin</code> : c'est le projet entier.</p>
+  <p>Rangez-le où vous voulez, mais retenez l'endroit. Par exemple <code>Documents\divin</code>.</p>
+
+  <h3>Le regarder tout de suite</h3>
+  <p>Ouvrez le fichier <code>index.html</code> : le site s'affiche dans votre navigateur. C'est déjà tout ce qui a été construit.</p>
+
+  <h2><span class="n">2</span>Installer les deux outils</h2>
+  <p>Deux logiciels gratuits suffisent, et ce sont les seuls.</p>
+  <h3>Un éditeur de texte pour le code</h3>
+  <p><b>Visual Studio Code</b>, sur <a href="https://code.visualstudio.com" target="_blank" rel="noopener">code.visualstudio.com</a>. Installation classique, tout par défaut. C'est lui qui ouvrira les fichiers du site.</p>
+  <h3>Git, qui conserve l'historique</h3>
+  <p><b>Git</b>, sur <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git-scm.com</a>. Là aussi, tout par défaut, cliquez « Suivant » jusqu'au bout. Git ne s'ouvre pas comme un logiciel normal : il travaille en arrière-plan et c'est lui qui enverra le projet sur votre compte.</p>
+
+  <h2><span class="n">3</span>Créer votre compte GitHub</h2>
+  <p>GitHub, c'est l'endroit où le projet sera conservé, avec tout son historique. Gratuit.</p>
+  <ol>
+    <li>Allez sur <a href="https://github.com" target="_blank" rel="noopener">github.com</a> et créez un compte.</li>
+    <li>Une fois connecté, cliquez sur le <b>+</b> en haut à droite, puis <b>New repository</b>.</li>
+    <li>Nom du dépôt : <code>divin</code>.</li>
+    <li>Laissez-le en <b>Private</b> si vous ne voulez pas qu'il soit visible de tous.</li>
+    <li>⚠️ Ne cochez rien d'autre : ni README, ni .gitignore, ni licence. Le projet en a déjà.</li>
+    <li>Cliquez <b>Create repository</b>.</li>
+  </ol>
+  <p>GitHub affiche alors une adresse du type <code>https://github.com/votre-nom/divin.git</code>. Gardez-la sous les yeux.</p>
+
+  <h2><span class="n">4</span>Envoyer le projet sur votre compte</h2>
+  <p>Ouvrez le dossier <code>divin</code>, faites un clic droit dans un endroit vide et choisissez <b>Ouvrir dans le terminal</b> (ou « Git Bash Here »). Une fenêtre noire s'ouvre : tapez les lignes suivantes, une par une, en validant à chaque fois.</p>
+  <pre><code>git remote add origin https://github.com/votre-nom/divin.git
+git branch -M main
+git push -u origin main</code></pre>
+  <p>Remplacez <code>votre-nom</code> par le vôtre. Git vous demandera de vous connecter à GitHub la première fois : une fenêtre s'ouvre, vous validez, et c'est fait une fois pour toutes.</p>
+  <div class="note">
+    <p>Rechargez la page de votre dépôt sur GitHub : tous les fichiers sont là. <b>À partir de maintenant, le projet est chez vous.</b></p>
+  </div>
+
+  <h2><span class="n">5</span>Mettre le site en ligne</h2>
+  <p>Vercel publie le site et lui donne une adresse. Gratuit également.</p>
+  <ol>
+    <li>Allez sur <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a> et choisissez <b>Continue with GitHub</b> : pas de nouveau mot de passe à retenir.</li>
+    <li>Cliquez <b>Add New</b>, puis <b>Project</b>.</li>
+    <li>Vercel affiche vos dépôts GitHub : choisissez <code>divin</code> et cliquez <b>Import</b>.</li>
+    <li>Ne changez aucun réglage. Le site est fait de fichiers simples, il n'y a rien à construire.</li>
+    <li>Cliquez <b>Deploy</b> et patientez une minute.</li>
+  </ol>
+  <p>Vercel vous donne une adresse, du type <code>divin-xxxx.vercel.app</code>. C'est votre site, sur votre compte.</p>
+
+  <h2><span class="n">6</span>Modifier le site ensuite</h2>
+  <p>Ouvrez le dossier dans Visual Studio Code : <b>Fichier → Ouvrir le dossier</b>, puis choisissez <code>divin</code>.</p>
+  <ul>
+    <li>Pour changer un <b>texte</b> ou une <b>page</b> : ouvrez le fichier <code>.html</code> qui porte son nom. <code>index.html</code> est l'accueil, <code>inscription.html</code> l'inscription, et ainsi de suite.</li>
+    <li>Pour changer une <b>couleur</b>, une taille, un espacement : <code>styles.css</code>. Les couleurs du site sont regroupées tout en haut du fichier.</li>
+    <li>Pour changer un <b>comportement</b> (ce qui se passe quand on clique) : <code>app.js</code>.</li>
+  </ul>
+  <p>Enregistrez, rechargez la page dans le navigateur : le changement est là.</p>
+
+  <h3>Publier vos modifications</h3>
+  <p>Dans le terminal, toujours dans le dossier du projet :</p>
+  <pre><code>git add -A
+git commit -m "ce que j'ai changé"
+git push</code></pre>
+  <p>Vercel s'en aperçoit tout seul et met le site à jour en une minute. Vous n'avez rien d'autre à faire.</p>
+
+  <div class="sep"></div>
+
+  <h2>Trois choses à savoir avant une vraie ouverture</h2>
+  <p>Le site est aujourd'hui un prototype : il montre le parcours complet, mais il n'est pas prêt à accueillir du public. Trois points, à traiter le jour venu.</p>
+  <h3>Il demande à être ignoré des moteurs de recherche</h3>
+  <p>C'est volontaire, le temps de la mise au point. Deux endroits le disent : la ligne <code>robots</code> en haut de chaque page, et le fichier <code>robots.txt</code>. À retirer le jour de l'ouverture, pas avant.</p>
+  <h3>La vérification d'âge est simulée</h3>
+  <p>L'écran de vérification fait semblant : il attend quelques secondes et valide. Pour un service réellement ouvert, il faudra une vraie vérification.</p>
+  <h3>Rien n'est enregistré sur un serveur</h3>
+  <p>Les profils, les messages et les photos restent dans le navigateur de la personne. Deux téléphones ne voient pas les mêmes choses. C'est parfait pour montrer le projet, insuffisant pour un vrai service : il faudra alors une base de données.</p>
+
+  <p class="fin">Le dossier contient aussi un fichier <code>HISTORIQUE.md</code> qui retrace tout ce qui a été construit et les décisions prises, et un <code>README.md</code> plus court. Le site actuel reste en ligne pendant que vous installez le vôtre : rien ne s'arrête.</p>
+
+  <p style="margin-top:34px"><a class="bouton" href="/" style="display:inline-block;min-width:200px;text-align:center;">Revenir au site</a></p>
+
+</div>
+</body>
+</html>
