@@ -1,6 +1,14 @@
 // Divin — logique du prototype. Tout vit dans le navigateur (localStorage),
 // aucune donnée n'est envoyée nulle part.
 
+/* ---------------- service worker (installation, hors-ligne) ---------------- */
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function () {});
+  });
+}
+
 /* ---------------- état ---------------- */
 
 function lireProfil() {
