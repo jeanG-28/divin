@@ -1004,6 +1004,7 @@ document.addEventListener('DOMContentLoaded', function () {
           var a = document.createElement('a');
           a.className = 'carte';
           a.href = '/profil?u=' + p.id;
+          a.setAttribute('data-type', p.type === 'couple' ? 'couple' : (p.genre === 'homme' ? 'solo-h' : 'solo-f'));
           var teinte = 't' + ((i % 4) + 1);
           var bits = [];
           if (p.type === 'couple' && p.age_elle && p.age_lui) bits.push(p.age_elle + ' et ' + p.age_lui + ' ans');
