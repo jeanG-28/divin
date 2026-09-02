@@ -17,6 +17,20 @@ var sb = (typeof supabase !== 'undefined' && supabase.createClient)
   ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
   : null;
 
+  function synchroniserProfil() {
+      if (!sb) return;
+      sb.auth.getSession().then(function (res) {
+            var session = res.data.session;
+            if (!session) return;
+            var p = lireProfil();
+            sb.from('profiles').update({
+                    pseudo: p.pseudo, age: p.age, age_elle: p.ageElle, age_lui: p.ageLui,
+                    ville: p.ville, type: p.type, genre: p.genre, description: p.description,
+                    physique: p.physique || {}, verifie: !!p.verifie
+            }).eq('id', session.user.id).then(function () {});
+      });
+  }
+
 /* ---------------- installation (ajout à l'écran d'accueil) ---------------- */
 
 var invitePrompt = null;
@@ -543,7 +557,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (btnSuite) {
       // demande de Jean (01/09) : pas de verification photo apres une simple modification
       if (profil.verifie) { btnSuite.textContent = 'Enregistrer'; btnSuite.setAttribute('href', '/moi'); }
-      btnSuite.addEventListener('click', function () { sauverCote(); });
+      btnSuite.addEventListener('click', function () { sauverCote(); synchroniserProfil(); });
     }
   }
 
@@ -564,6 +578,7 @@ document.addEventListener('DOMContentLoaded', function () {
         toast('Photo envoyée. Contrôle en cours…');
         setTimeout(function () {
           ecrireProfil({ verifie: true });
+                        synchroniserProfil();
           if (geste) geste.innerHTML = '<div style="font-size:15px;font-weight:700;color:#8CB79A;padding:26px 10px;text-align:center;">Profil vérifié ✓<br><span style="font-size:12px;color:#9A9093;font-weight:400;">(simulé — dans la vraie application, une personne contrôle sous 24 h)</span></div>';
           btnCam.textContent = 'Continuer';
           btnCam.classList.remove('fait');
