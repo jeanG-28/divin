@@ -83,6 +83,29 @@ var LIVES = {
   lise: { nom: 'Lise & Marc', sous: 'Soirée tranquille · Mainvilliers · 9 km', teinte: 't4', v: '23' }
 };
 
+var SOIREES = {
+  velours: { titre: 'Soirée Velours', sur: 'Samedi 6 septembre · 22 h', lieu: 'Le Loft · Chartres · 3 km',
+    organisateur: 'Le Loft', teinte: 't4', horaires: '22 h – 5 h', placesTexte: '18 sur 40', complet: false,
+    tarifCouple: '40 €', tarifFemme: 'Gratuit', hommeAdmis: false,
+    description: 'Ambiance feutrée, musique lounge jusqu’à minuit puis house. Buffet salé offert à 23 h. Espace détente et sauna ouverts toute la nuit.',
+    etiquettes: ['Couples et femmes seules', 'Buffet offert', 'Sauna', 'Parking gratuit', 'Accès PMR'] },
+  apero: { titre: 'Apéro rencontre', sur: 'Vendredi 12 septembre · 19 h', lieu: 'Bar privatisé · Lucé · 6 km',
+    organisateur: 'Bar privatisé', teinte: 't2', horaires: '19 h – 23 h', placesTexte: '9 sur 25', complet: false,
+    tarifCouple: 'Entrée libre', tarifFemme: 'Entrée libre', hommeAdmis: true, tarifHomme: '10 €',
+    description: 'Rencontre informelle autour d’un verre, sans obligation de suite. Idéal pour découvrir le milieu et poser des questions sans pression.',
+    etiquettes: ['Sans suite obligatoire', 'Débutants bienvenus', 'Discussions ouvertes'] },
+  masquee: { titre: 'Soirée masquée', sur: 'Samedi 20 septembre · 21 h', lieu: 'Domicile privé · Dreux · 34 km',
+    organisateur: 'Hôtes privés', teinte: 't3', horaires: '21 h – 4 h', placesTexte: '12 places, sur sélection', complet: false,
+    surSelection: true, tarifCouple: 'Communiqué après sélection', tarifFemme: 'Communiqué après sélection', hommeAdmis: false,
+    description: 'Soirée intimiste sur invitation, masque obligatoire jusqu’à minuit. Nombre de places volontairement limité pour préserver l’ambiance.',
+    etiquettes: ['Sur sélection', 'Masque obligatoire', '12 places'] },
+  nuitblanche: { titre: 'Nuit blanche', sur: 'Samedi 27 septembre · 22 h', lieu: 'Le Loft · Chartres · 3 km',
+    organisateur: 'Le Loft', teinte: 't4', horaires: '22 h – 6 h', placesTexte: '40 sur 40', complet: true,
+    tarifCouple: '45 €', tarifFemme: 'Gratuit', hommeAdmis: false,
+    description: 'Édition spéciale de fin de mois jusqu’au lever du jour. Ouverture des portes à 22 h, dernier service au buffet à 3 h.',
+    etiquettes: ['Couples et femmes seules', 'Buffet offert', 'Ouvert jusqu’au matin'] }
+};
+
 function param(nom) {
   try { return new URLSearchParams(location.search).get(nom); } catch (e) { return null; }
 }
@@ -594,25 +617,66 @@ document.addEventListener('DOMContentLoaded', function () {
     if (champ) champ.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); envoyerMsg(); } });
   }
 
-  /* ---- soirée : inscription (gratuite) et désinscription ---- */
+  /* ---- soirée : contenu paramétré + inscription/désinscription par événement ---- */
   if (page === '/soiree') {
+    var cleSoiree = param('s') || 'velours';
+    var s = SOIREES[cleSoiree] || SOIREES.velours;
+    if (!SOIREES[cleSoiree]) cleSoiree = 'velours';
+
+    document.title = s.titre + ' · Divin';
+    var bandeauS = document.querySelector('.bandeau');
+    if (bandeauS && s.teinte) bandeauS.className = bandeauS.className.replace(/t[1-4]/, s.teinte);
+    var surS = document.getElementById('soiree-sur'); if (surS) surS.textContent = s.sur;
+    var titreS = document.getElementById('soiree-titre'); if (titreS) titreS.textContent = s.titre;
+    var orgS = document.getElementById('soiree-organisateur');
+    if (orgS && orgS.childNodes[0]) orgS.childNodes[0].nodeValue = s.organisateur + ' ';
+    var orgVigS = document.getElementById('soiree-org-vig');
+    if (orgVigS && s.teinte) orgVigS.className = orgVigS.className.replace(/t[1-4]/, s.teinte);
+    var horairesS = document.getElementById('soiree-horaires'); if (horairesS) horairesS.textContent = s.horaires;
+    var placesS = document.getElementById('soiree-places'); if (placesS) placesS.textContent = s.complet ? 'Complet' : s.placesTexte;
+    var descS = document.getElementById('soiree-desc'); if (descS) descS.textContent = s.description;
+    var tarifCoupleS = document.getElementById('soiree-tarif-couple'); if (tarifCoupleS) tarifCoupleS.textContent = s.tarifCouple;
+    var tarifFemmeS = document.getElementById('soiree-tarif-femme'); if (tarifFemmeS) tarifFemmeS.textContent = s.tarifFemme;
+    var ligneHommeS = document.getElementById('soiree-ligne-homme');
+    var tarifHommeS = document.getElementById('soiree-tarif-homme');
+    if (ligneHommeS && tarifHommeS) {
+      if (s.hommeAdmis) {
+        ligneHommeS.classList.remove('ligne--off'); ligneHommeS.classList.add('ligne--sur');
+        tarifHommeS.className = 'ligne__prix'; tarifHommeS.textContent = s.tarifHomme || '';
+      } else {
+        ligneHommeS.classList.remove('ligne--sur'); ligneHommeS.classList.add('ligne--off');
+        tarifHommeS.className = 'ligne__note'; tarifHommeS.textContent = 'Non admis ce soir';
+      }
+    }
+    var etiqS = document.getElementById('soiree-etiquettes');
+    if (etiqS && s.etiquettes) {
+      etiqS.innerHTML = '';
+      for (var ei = 0; ei < s.etiquettes.length; ei++) {
+        var etEl = document.createElement('span');
+        etEl.className = ei === 0 ? 'etiquette etiquette--couple' : 'etiquette';
+        etEl.textContent = s.etiquettes[ei];
+        etiqS.appendChild(etEl);
+      }
+    }
+
+    var cleEtat = 'soiree.' + cleSoiree + '.inscrit';
     var btnIns = document.getElementById('btn-inscription');
     var sousIns = document.getElementById('sous-inscription');
     var btnDes = document.getElementById('btn-desinscrire');
     if (btnIns) {
       var type = profil.type || null;
       var genre = profil.genre || null;
-      var admis = !(genre === 'homme' && type !== 'couple');
+      var admis = (genre === 'homme' && type !== 'couple') ? !!s.hommeAdmis : true;
       var texteLibre, sousLibre;
-      if (!admis) { texteLibre = 'Hommes seuls non admis ce soir'; sousLibre = 'Cette soirée est réservée aux couples et aux femmes seules.'; }
-      else if (type === 'couple') { texteLibre = 'Je m’inscris'; sousLibre = 'Inscription gratuite : tarif couple 40 €, à régler à l’entrée du club.'; }
-      else if (genre === 'femme') { texteLibre = 'Je m’inscris'; sousLibre = 'Inscription gratuite. Entrée gratuite pour les femmes seules.'; }
-      else { texteLibre = 'Je m’inscris'; sousLibre = 'Inscription gratuite : le tarif se règle à l’entrée du club (couple 40 €, femme seule gratuit).'; }
+      if (s.complet) { texteLibre = 'Complet'; sousLibre = 'Cette soirée affiche complet. Une place peut se libérer, revenez y jeter un œil.'; }
+      else if (!admis) { texteLibre = 'Hommes seuls non admis ce soir'; sousLibre = 'Cette soirée est réservée aux couples et aux femmes seules.'; }
+      else if (s.surSelection) { texteLibre = 'Je fais ma demande'; sousLibre = 'Sur sélection : votre demande est examinée avant confirmation.'; }
+      else { texteLibre = 'Je m’inscris'; sousLibre = 'Inscription gratuite : le tarif se règle à l’entrée (couple ' + s.tarifCouple + ', femme seule ' + s.tarifFemme + ').'; }
       var rendre = function (inscrit) {
         if (inscrit) {
-          btnIns.textContent = 'Inscrit ✓';
+          btnIns.textContent = s.surSelection ? 'Demande envoyée ✓' : 'Inscrit ✓';
           btnIns.style.opacity = '.65';
-          if (sousIns) sousIns.textContent = 'Votre inscription est envoyée. L’adresse arrive après validation.';
+          if (sousIns) sousIns.textContent = s.surSelection ? 'Votre demande a été transmise. Vous serez recontacté après sélection.' : 'Votre inscription est envoyée. L’adresse arrive après validation.';
           if (btnDes) btnDes.style.display = '';
         } else {
           btnIns.textContent = texteLibre;
@@ -621,21 +685,22 @@ document.addEventListener('DOMContentLoaded', function () {
           if (btnDes) btnDes.style.display = 'none';
         }
       };
-      if (!admis) { btnIns.style.background = 'none'; btnIns.style.border = '1px solid #4A3230'; btnIns.style.color = '#C99089'; }
-      rendre(admis && lireEtat('soiree.velours.inscrit', false));
+      if (s.complet || !admis) { btnIns.style.background = 'none'; btnIns.style.border = '1px solid #4A3230'; btnIns.style.color = '#C99089'; }
+      rendre(!s.complet && admis && lireEtat(cleEtat, false));
       btnIns.addEventListener('click', function (ev) {
         ev.preventDefault();
+        if (s.complet) { toast('Cette soirée affiche complet.'); return; }
         if (!admis) { toast('Cette soirée n’accepte pas les hommes seuls. D’autres soirées oui : regardez l’Apéro rencontre du 12.'); return; }
-        if (lireEtat('soiree.velours.inscrit', false)) { toast('Vous êtes déjà inscrit. Le lien juste en dessous permet de vous désinscrire.'); return; }
+        if (lireEtat(cleEtat, false)) { toast('Vous êtes déjà inscrit. Le lien juste en dessous permet de vous désinscrire.'); return; }
         if (!profil.pseudo) { toast('Créez d’abord votre profil pour vous inscrire.'); return; }
         if (!profil.verifie) { toast('Il faut un profil vérifié pour s’inscrire (étape Vérification).'); return; }
-        ecrireEtat('soiree.velours.inscrit', true);
+        ecrireEtat(cleEtat, true);
         rendre(true);
-        toast('Inscription envoyée ✓ Le club sait que vous comptez venir. L’adresse exacte arrive après validation.');
+        toast(s.surSelection ? 'Demande transmise ✓ Vous serez recontacté après sélection.' : 'Inscription envoyée ✓ Le club sait que vous comptez venir. L’adresse exacte arrive après validation.');
       });
       if (btnDes) btnDes.addEventListener('click', function (ev) {
         ev.preventDefault();
-        ecrireEtat('soiree.velours.inscrit', false);
+        ecrireEtat(cleEtat, false);
         rendre(false);
         toast('Vous êtes désinscrit. Le club est prévenu que vous ne viendrez plus.');
       });
@@ -774,7 +839,7 @@ document.addEventListener('DOMContentLoaded', function () {
           '<div class="carte__corps" style="gap:5px;"><b style="font-size:14.5px;"></b>' +
           '<span style="font-size:11.5px;color:#9A9093;">0 inscrit — publiée à l’instant</span></div>' +
           '<span class="badge badge--en-ligne">EN LIGNE</span>';
-        carte.querySelector('b').textContent = pub.nom;
+        carte.querySelector('.carte__corps b').textContent = pub.nom;
         listeS.insertBefore(carte, listeS.children[1]);
       }
       if (param('publie')) toast('Soirée publiée ✓ — elle apparaît dans vos soirées.');
