@@ -1,7 +1,7 @@
 // Divin - service worker : permet l'installation et l'usage hors-ligne.
 // Strategie : "stale-while-revalidate" pour tout ce qui vient du site lui-meme.
 
-var CACHE = 'divin-v1';
+var CACHE = 'divin-v2';
 
 var COQUILLE = [
   '/',
