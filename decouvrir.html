@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E0C0D">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Divin">
+<meta name="format-detection" content="telephone=no">
+<meta name="robots" content="noindex, nofollow">
+<title>À proximité · Divin</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icone-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<div class="cadre">
+
+<div class="ecran ecran--nav">
+  <div class="entete"><h1 class="titre">À proximité</h1><span style="display:flex;align-items:center;gap:18px;"><a class="cloche" href="/notifications"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A9093" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9 a6 6 0 1 0 -12 0 c0 5 -2 6 -2 7 h16 c0 -1 -2 -2 -2 -7"></path><path d="M10 20 a2.4 2.4 0 0 0 4 0"></path></svg><i></i></a><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A9093" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 7 h16 M7 12 h10 M10 17 h4"/></svg></span></div>
+  <div class="pastilles pastilles--file" style="padding-left:22px;padding-right:22px;margin:0;">
+    <span class="pastille pastille--on" data-filtre="tous">Tous</span>
+    <span class="pastille" data-filtre="dispo">Dispo ce soir</span>
+    <span class="pastille" data-filtre="couples">Couples</span>
+    <span class="pastille" data-filtre="solo-f">Femmes seules</span>
+    <span class="pastille" data-filtre="solo-h">Hommes seuls</span>
+  </div>
+  <div class="pastilles pastilles--file" style="padding-left:22px;padding-right:22px;margin:6px 0 0;">
+    <span class="pastille pastille--on" data-filtre="toutes">Toutes orientations</span>
+    <span class="pastille" data-filtre="hetero">Hétéro</span>
+    <span class="pastille" data-filtre="bi">Bi</span>
+    <span class="pastille" data-filtre="homo">Homo</span>
+    <span class="pastille" data-filtre="pan">Pan</span>
+  </div>
+  <div class="corps" style="gap:12px;padding-bottom:22px;">
+    
+    <a class="carte" href="/profil?p=nina" data-orientation="bi" data-type="solo-f" data-dispo="oui">
+      <div class="vig vig--liste t1"></div>
+      <div class="carte__corps">
+        <div class="carte__nom"><b>Nina</b><svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex:0 0 auto;"><circle cx="12" cy="12" r="9" fill="#C08B77"/><path d="M8 12.3 L10.7 15 L16 9.6" stroke="#17110F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="carte__meta">32 ans · Chartres · 2 km · Bi</div>
+        <span class="dispo-mot"><i></i>DISPO CE SOIR</span>
+        <div class="carte__phys"><div>1,68 m · 58 kg · Mince · 90 C</div></div>
+      </div>
+      <span class="carte__quand">2 h</span>
+    </a> 
+    <a class="carte" href="/profil?p=camille" data-orientation="hetero" data-type="couple" data-dispo="non">
+      <div class="vig vig--liste t2"></div>
+      <div class="carte__corps">
+        <div class="carte__nom"><b>Camille &amp; Théo</b><span class="badge">COUPLE</span></div>
+        <div class="carte__meta">34 et 37 ans · Lucé · 5 km · Hétéros</div>
+        <div class="carte__phys"><div><em>Elle</em> 1,68 m · Mince · 90 C</div><div><em>Lui</em> 1,82 m · Sportif · 17 cm</div></div>
+      </div>
+      <span class="carte__quand">hier</span>
+    </a> 
+    <a class="carte" href="/profil?p=adrien" data-orientation="pan" data-type="solo-h" data-dispo="non">
+      <div class="vig vig--liste t3"></div>
+      <div class="carte__corps">
+        <div class="carte__nom"><b>Adrien</b></div>
+        <div class="carte__meta">41 ans · Luisant · 7 km · Pan</div>
+        <div class="carte__phys"><div>1,79 m · 76 kg · Sportif · 16 cm</div></div>
+      </div>
+      <span class="carte__quand">3 j</span>
+    </a> 
+    <a class="carte" href="/profil?p=lise" data-orientation="bi" data-type="couple" data-dispo="non">
+      <div class="vig vig--liste t4"></div>
+      <div class="carte__corps">
+        <div class="carte__nom"><b>Lise &amp; Marc</b><span class="badge">COUPLE</span></div>
+        <div class="carte__meta">45 et 48 ans · Mainvilliers · 9 km · Bis</div>
+        <div class="carte__phys"><div><em>Elle</em> 1,62 m · Pulpeuse · 95 D</div><div><em>Lui</em> 1,75 m · Enrobé · 15 cm</div></div>
+      </div>
+      <span class="carte__quand">5 j</span>
+    </a>
+  </div>
+</div>
+<nav class="nav">
+<a href="/decouvrir" class="on"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="11" cy="11" r="6.5"/><path d="M16 16 L21 21"/></svg><span>Découvrir</span></a>
+<a href="/lives"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/></svg><span>Lives</span></a>
+<a href="/soirees"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5 h17 M8 3 v3.5 M16 3 v3.5"/></svg><span>Soirées</span></a>
+<a href="/messages"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M20.5 12 a8.5 7.5 0 1 1 -3.6 -6.1 M20.5 12 a8.5 7.5 0 0 1 -11.6 6.9 L4 20 l1.3 -3.4"/></svg><span>Messages</span></a>
+<a href="/moi"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="8" r="4"/><path d="M5 21 a7 7 0 0 1 14 0"/></svg><span>Profil</span></a>
+</nav>
+
+</div>
+</body>
+</html>

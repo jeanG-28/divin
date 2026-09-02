@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E0C0D">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Divin">
+<meta name="format-detection" content="telephone=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Votre physique · Divin</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icone-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<div class="cadre">
+
+<div class="ecran">
+  <div class="barre"><a class="retour" href="/inscription"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A9093" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ><path d="M15 5 L8 12 L15 19"/></svg></a><span class="etape">Étape 2 sur 3</span></div>
+  <div class="corps">
+    <h1 class="titre">Votre physique</h1>
+    <div class="jauge"><span class="on"></span><span class="on"></span><span></span></div>
+
+    <div class="duo" id="onglets-physique">
+      <div class="seg actif" data-choix="elle">Elle</div>
+      <div class="seg" data-choix="lui">Lui</div>
+    </div>
+
+    <div class="bloc">
+      <div class="legende">Mensurations</div>
+      <div class="trio">
+        <div class="tuile"><span>Taille</span><input inputmode="decimal" autocomplete="off" placeholder="1,70 m" id="taille"></div>
+        <div class="tuile"><span>Poids</span><input inputmode="numeric" autocomplete="off" placeholder="65 kg" id="poids"></div>
+        <div class="tuile" id="champ-poitrine"><span>Poitrine</span><input autocomplete="off" placeholder="90 C" id="poitrine"></div>
+      </div>
+    </div>
+
+    <div class="bloc">
+      <div class="legende">Silhouette</div>
+      <div class="pastilles" data-exclusif id="pastilles-silhouette">
+        <span class="pastille pastille--on">Mince</span>
+        <span class="pastille">Sportive</span>
+        <span class="pastille">Pulpeuse</span>
+        <span class="pastille">Ronde</span>
+      </div>
+    </div>
+
+    <div class="bloc">
+      <div class="legende">Détails</div>
+      <div class="lignes"><div class="ligne"><span class="ligne__nom">Orientation</span><span class="ligne__val" style="color:#EFE9EA;">Hétéro</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4E4547" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 5 L16 12 L9 19"/></svg></div><div class="ligne"><span class="ligne__nom">Cheveux</span><span class="ligne__val" style="color:#EFE9EA;">Bruns</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4E4547" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 5 L16 12 L9 19"/></svg></div><div class="ligne"><span class="ligne__nom">Yeux</span><span class="ligne__val" style="color:#EFE9EA;">Verts</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4E4547" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 5 L16 12 L9 19"/></svg></div><div class="ligne"><span class="ligne__nom">Épilation</span><span class="ligne__val" style="color:#EFE9EA;">Intégrale</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4E4547" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 5 L16 12 L9 19"/></svg></div><div class="ligne" id="ligne-barbe" style="display:none;">
+          <span class="ligne__nom">Barbe</span>
+          <div style="display: flex; align-items: center; gap: 8px;"><div class="ligne__val" style="font-size: 13.5px; font-weight: 600;">Courte</div><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4E4547" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5 L16 12 L9 19"></path></svg></div>
+        </div>
+        <div class="ligne"><span class="ligne__nom">Tatouages</span><span class="ligne__val" style="color:#EFE9EA;">1</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4E4547" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 5 L16 12 L9 19"/></svg></div><div class="ligne"><span class="ligne__nom">Piercings</span><span class="ligne__val" style="color:#6E6467;">Non renseigné</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4E4547" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 5 L16 12 L9 19"/></svg></div></div>
+    </div>
+
+    <div class="bloc">
+      <div class="legende">Description</div>
+      <textarea class="champ" id="description" rows="4" placeholder="Quelques phrases pour vous décrire : votre état d’esprit, ce que vous cherchez, vos limites…" style="min-height:96px;padding:12px 14px;resize:none;font:inherit;font-size:13.5px;line-height:1.5;color:#EFE9EA;"></textarea>
+    </div>
+
+    <div class="champ">
+      <span style="font-size:12.5px;line-height:1.45;color:#B5ABAD;">Mensurations visibles <b style="color:#EFE9EA;">seulement</b> par les profils à qui j'ai donné accès</span>
+      <span class="bascule"><i></i></span>
+    </div>
+  </div>
+  <div class="pied"><a class="bouton" href="/verification" id="btn-continuer">Continuer</a></div>
+</div>
+
+</div>
+</body>
+</html>

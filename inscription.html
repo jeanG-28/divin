@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E0C0D">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Divin">
+<meta name="format-detection" content="telephone=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Votre profil · Divin</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icone-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<div class="cadre">
+
+<div class="ecran">
+  <div class="barre"><a class="retour" href="/"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A9093" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ><path d="M15 5 L8 12 L15 19"/></svg></a><span class="etape">Étape 1 sur 3</span></div>
+  <div class="corps">
+    <h1 class="titre">Qui êtes-vous ?</h1>
+    <div class="jauge"><span class="on"></span><span></span><span></span></div>
+
+    <div class="bloc">
+      <div class="legende">Votre profil</div>
+      <div class="duo">
+        <div class="choix actif" data-choix="solo">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C08B77" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="8" r="4"/><path d="M5 21 a7 7 0 0 1 14 0"/></svg><b>Seul·e</b><span>Un profil pour vous</span>
+        </div>
+        <div class="choix" data-choix="couple">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9A9093" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" ><circle cx="8" cy="8" r="3.2"/><circle cx="16.5" cy="8" r="3.2"/><path d="M2.8 20 a5.2 5.2 0 0 1 10.4 0"/><path d="M12.6 20 a5.2 5.2 0 0 1 8.6 0"/></svg><b>En couple</b><span>Un profil à deux</span>
+        </div>
+      </div>
+    </div>
+
+    <a href="/pro/creer" style="display:flex;align-items:center;gap:10px;padding:13px 16px;border:1px dashed #3A3040;border-radius:10px;">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B08BC9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;"><path d="M4 20 V9 l8 -5 8 5 v11"></path><path d="M9.5 20 v-6 h5 v6"></path></svg>
+      <span style="flex:1 1 auto;font-size:12.5px;line-height:1.45;color:#B5ABAD;">Vous êtes un <b style="color:#EFE9EA;font-weight:600;">club ou un organisateur</b> ? Ouvrez directement un espace établissement.</span>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4E4547" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;"><path d="M9 5 L16 12 L9 19"></path></svg>
+    </a>
+
+    <div class="bloc" id="bloc-genre">
+      <div class="legende">Vous êtes</div>
+      <div class="pastilles" data-exclusif>
+        <span class="pastille pastille--on">Une femme</span>
+        <span class="pastille">Un homme</span>
+      </div>
+    </div>
+
+        <div class="bloc">
+      <div class="legende">Vos informations</div>
+      <input class="champ" type="text" autocomplete="off" placeholder="Votre pseudo" id="pseudo">
+      <div class="duo" id="duo-age-couple" style="display:none;">
+        <input class="champ" type="text" inputmode="numeric" autocomplete="off" placeholder="Âge — elle" id="age-elle">
+        <input class="champ" type="text" inputmode="numeric" autocomplete="off" placeholder="Âge — lui" id="age-lui">
+      </div>
+      <div class="duo">
+        <input class="champ" type="text" inputmode="numeric" autocomplete="off" placeholder="Âge" id="age">
+        <input class="champ" type="text" autocomplete="off" placeholder="Ville" id="ville">
+      </div>
+    </div>
+
+    <div class="bloc">
+      <div class="legende">Vos photos</div>
+      <div class="trio">
+        <div style="aspect-ratio:3/4;border-radius:10px;border:1px dashed #352F31;display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6E6467" stroke-width="1.6" stroke-linecap="round"><path d="M12 5 v14 M5 12 h14"></path></svg></div>
+        <div style="aspect-ratio:3/4;border-radius:10px;border:1px dashed #352F31;display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6E6467" stroke-width="1.6" stroke-linecap="round"><path d="M12 5 v14 M5 12 h14"></path></svg></div>
+        <div style="aspect-ratio:3/4;border-radius:10px;border:1px dashed #352F31;display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6E6467" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 5 v14 M5 12 h14"/></svg></div>
+      </div>
+      <div class="champ">
+        <span style="font-size:12.5px;line-height:1.45;color:#B5ABAD;">Flouter mes photos tant que je n'ai pas donné l'accès</span>
+        <span class="bascule"><i></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="pied"><a class="bouton" href="/physique" id="btn-continuer">Continuer</a></div>
+</div>
+
+</div>
+</body>
+</html>

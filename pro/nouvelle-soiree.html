@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E0C0D">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Divin">
+<meta name="format-detection" content="telephone=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Nouvelle soirée · Divin</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icone-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<div class="cadre">
+<div style="height:3px;background:linear-gradient(90deg,#D2A94E,#8A55B0);"></div>
+
+<div class="ecran" style="background:#121016;">
+  <div class="barre"><a class="retour" href="/pro"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A9093" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ><path d="M15 5 L8 12 L15 19"/></svg></a><span class="etape">Le Loft</span></div>
+  <div class="corps" style="padding-bottom:24px;">
+    <h1 class="titre">Nouvelle soirée</h1>
+    
+
+    <div class="bloc">
+      <span class="legende">L'essentiel</span>
+      <input class="champ" type="text" autocomplete="off" placeholder="Nom de la soirée" id="soiree-nom" value="Soirée Velours">
+      <div class="duo"><input class="champ" type="text" autocomplete="off" placeholder="Date" value="Sam. 6 sept."><input class="champ" type="text" autocomplete="off" placeholder="Horaires" value="22 h – 5 h"></div>
+      <div class="champ"><span class="champ__label">Places au total</span><input style="width:64px;text-align:right;font-weight:600;font-size:14px;color:var(--texte);background:none;border:0;padding:0;-webkit-appearance:none;" inputmode="numeric" autocomplete="off" value="40"></div>
+    </div>
+
+    <div class="bloc">
+      <span class="legende">Qui entre, et à quel prix</span>
+      <div class="lignes">
+        <div class="ligne"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C08B77" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" ><circle cx="8" cy="8" r="3.2"/><circle cx="16.5" cy="8" r="3.2"/><path d="M2.8 20 a5.2 5.2 0 0 1 10.4 0"/><path d="M12.6 20 a5.2 5.2 0 0 1 8.6 0"/></svg><span class="ligne__nom"><b>Couple</b></span><span class="prix-champ"><input inputmode="numeric" autocomplete="off" value="40 €"></span><span class="bascule"><i></i></span></div>
+        <div class="ligne"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C08B77" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="8" r="3.6"/><path d="M5.5 21 a6.5 6.5 0 0 1 13 0"/></svg><span class="ligne__nom"><b>Femme seule</b></span><span class="prix-champ"><input autocomplete="off" value="Gratuit"></span><span class="bascule"><i></i></span></div>
+        <div class="ligne ligne--off"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4E4547" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="8" r="3.6"/><path d="M5.5 21 a6.5 6.5 0 0 1 13 0"/></svg><span class="ligne__nom"><b>Homme seul</b></span><span class="prix-champ prix-champ--off">Non admis</span><span class="bascule bascule--off"><i></i></span></div>
+      </div>
+      <div class="champ"><span class="champ__label" style="font-size:12.5px;color:#B5ABAD;">Une boisson comprise dans l'entrée</span><span class="bascule"><i></i></span></div>
+      <span class="txt--petit" style="margin:0;font-size:11.5px;color:#6E6467;">Un profil non admis ne voit pas le bouton d'inscription. Il voit la soirée, mais pas le tarif.</span>
+    </div>
+
+    <div class="bloc">
+      <span class="legende">Tenue exigée</span>
+      <div class="pastilles">
+        <span class="pastille pastille--on"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1A1214" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 12.5 L9.5 18 L20 6.5"/></svg> Chic</span>
+        <span class="pastille pastille--on"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1A1214" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 12.5 L9.5 18 L20 6.5"/></svg> Lingerie acceptée</span>
+        <span class="pastille pastille--non"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#C99089" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" ><path d="M6 6 L18 18 M18 6 L6 18"/></svg> Jean interdit</span>
+        <span class="pastille pastille--non"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#C99089" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" ><path d="M6 6 L18 18 M18 6 L6 18"/></svg> Baskets interdites</span>
+        <span class="pastille pastille--plus"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6E6467" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 5 v14 M5 12 h14"/></svg> Ajouter</span>
+      </div>
+      <textarea class="champ" rows="2" autocomplete="off">Vestiaire et casier fournis à l'entrée. Peignoir prêté sur demande.</textarea>
+    </div>
+
+    <div class="bloc">
+      <div class="entre"><span class="legende">Carte des boissons</span><span class="lien-accent">Reprendre celle du club</span></div>
+      <div class="lignes">
+        <div class="ligne"><span class="ligne__nom">Coupe de champagne</span><span class="ligne__prix">12 €</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4E4547" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ><path d="M16 4 l4 4 -11 11 H5 v-4 Z"/></svg></div>
+        <div class="ligne"><span class="ligne__nom">Cocktail maison</span><span class="ligne__prix">11 €</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4E4547" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ><path d="M16 4 l4 4 -11 11 H5 v-4 Z"/></svg></div>
+        <div class="ligne"><span class="ligne__nom">Soft, eau, café</span><span class="ligne__prix">5 €</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4E4547" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ><path d="M16 4 l4 4 -11 11 H5 v-4 Z"/></svg></div>
+        <div class="ligne"><span class="ligne__nom">Bouteille de champagne</span><span class="ligne__prix">90 €</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4E4547" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ><path d="M16 4 l4 4 -11 11 H5 v-4 Z"/></svg></div>
+        <div class="ligne" style="gap:9px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C08B77" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 5 v14 M5 12 h14"/></svg><span class="ligne__nom" style="color:#C08B77;font-weight:600;">Ajouter une boisson</span></div>
+      </div>
+    </div>
+
+    <div class="bloc">
+      <span class="legende">Détails de la soirée</span>
+      <textarea class="champ champ--zone" rows="4" autocomplete="off">Ambiance feutrée, musique lounge jusqu'à minuit puis house. Buffet salé offert à 23 h. Espace détente et sauna ouverts toute la nuit.</textarea>
+      <div class="etiquettes">
+        <span class="etiquette">Parking gratuit</span><span class="etiquette">Buffet offert</span>
+        <span class="etiquette">Sauna</span><span class="etiquette">Accès PMR</span>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div class="rangee-boutons">
+      <a class="bouton bouton--vide bouton--court" href="#" id="btn-brouillon">Brouillon</a>
+      <a class="bouton" href="#" id="btn-publier">Publier la soirée</a>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

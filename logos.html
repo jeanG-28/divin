@@ -1,0 +1,837 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A0909">
+<link rel="icon" href="/favicon.png" type="image/png">
+<title>Galerie Divin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --fond: #0A0909; --carte: #100E0F; --trait: #221D1F; --trait-fort: #2C2729;
+    --texte: #EFE9EA; --texte-2: #C9C0C2; --texte-3: #9A9093; --texte-4: #6E6467;
+    --accent: #C08B77; --accent-clair: #D6A48F;
+    --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--fond); }
+  body {
+    margin: 0; background: var(--fond); color: var(--texte);
+    font-family: var(--sans); font-size: 16px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 1240px; margin: 0 auto; padding: 0 26px 110px; }
+
+  header { padding: 80px 0 44px; border-bottom: 1px solid var(--trait); }
+  header h1 {
+    font-family: var(--serif); font-weight: 500; margin: 0 0 18px;
+    font-size: clamp(44px, 9vw, 82px); line-height: .95; text-wrap: balance;
+  }
+  header p { margin: 0; max-width: 52ch; font-size: 16px; line-height: 1.7; color: var(--texte-2); }
+  header .aide { margin-top: 22px; font-size: 13.5px; color: var(--texte-4); }
+
+  .grille {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(228px, 1fr));
+    gap: 22px; padding-top: 40px;
+  }
+  .l {
+    border: 1px solid var(--trait); border-radius: 14px; background: var(--carte);
+    padding: 22px 20px 18px; display: flex; flex-direction: column; gap: 18px;
+  }
+  .l__num {
+    font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .l__grand { display: flex; align-items: center; justify-content: center; min-height: 148px; }
+  .l__petits {
+    display: flex; align-items: flex-end; justify-content: center; gap: 16px;
+    padding: 14px 0 2px; border-top: 1px solid var(--trait);
+  }
+  .l__nom { font-size: 14.5px; font-weight: 700; }
+  .l__note { font-size: 12px; line-height: 1.5; color: var(--texte-4); margin-top: -12px; }
+
+  .fin { margin-top: 70px; padding-top: 34px; border-top: 1px solid var(--trait); font-size: 13.5px; color: var(--texte-4); }
+  .fin b { color: var(--texte-2); font-weight: 600; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="page">
+
+<header>
+  <h1>Galerie Divin</h1>
+  <p>Cinquante-quatre façons de dessiner la même idée : une silhouette de femme, des ailes d’ange. En tête, l’agenouillée : la pose demandée, dans le cercle, « DIVIN » en dessous. Chacune est montrée en grand, puis à 56, 34 et 22 pixels — la taille réelle d’une icône sur un téléphone. Un logo qui ne survit pas à 22 pixels ne fera pas l’affaire.</p>
+  <p class="aide">Dites-moi simplement un numéro.</p>
+</header>
+
+<h2 style="font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,44px);margin:44px 0 8px;">L’agenouillée</h2>
+<p style="margin:0 0 6px;max-width:52ch;font-size:14.5px;line-height:1.65;color:var(--texte-2);">La demande précisée : la pose de l’image envoyée — l’ange agenouillée — redessinée en propre (l’originale appartient à son dessinateur), dans le cercle, avec « DIVIN » écrit en dessous. Noir, violet et doré.</p>
+<div class="grille" id="grille10"></div>
+
+<h2 style="font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,44px);margin:60px 0 8px;">L’emblème</h2>
+<p style="margin:0 0 6px;max-width:52ch;font-size:14.5px;line-height:1.65;color:var(--texte-2);">La demande du jour : le cercle avec « DIVIN » écrit, en noir, violet et doré. L’ange y gagne une auréole, une chevelure en mèches, et une aile à trois rangées de plumes — dans l’esprit de l’image envoyée, sans la copier. En tout petit, un badge avec du texte devient illisible : l’emblème servira l’écran d’accueil et la communication, la silhouette seule restera l’icône.</p>
+<div class="grille" id="grille9"></div>
+
+<h2 style="font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,44px);margin:60px 0 8px;">Cinquième passe</h2>
+<p style="margin:0 0 6px;max-width:52ch;font-size:14.5px;line-height:1.65;color:var(--texte-2);">La bouche est retirée pour de bon : la tête redevient lisse, chignon bas et chevelure pleine — aucun trait de visage. La poitrine projetée et l’aile gravée sont conservées, avec les raccords nettoyés.</p>
+<div class="grille" id="grille8"></div>
+
+<h2 style="font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,44px);margin:60px 0 8px;">Quatrième passe</h2>
+<p style="margin:0 0 6px;max-width:52ch;font-size:14.5px;line-height:1.65;color:var(--texte-2);">Les trois demandes, appliquées franchement : la bouche a disparu (profil lisse), la poitrine est nettement plus dessinée et projetée, et l’aile gagne une deuxième rangée de plumes — les petites couvertures posées sur les longues rémiges, comme sur une aile d’ange gravée.</p>
+<div class="grille" id="grille7"></div>
+
+<h2 style="font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,44px);margin:60px 0 8px;">L’aile d’ange</h2>
+<p style="margin:0 0 6px;max-width:52ch;font-size:14.5px;line-height:1.65;color:var(--texte-2);">Troisième passe sur la 35 : une aile construite plume par plume, comme une vraie aile d’ange — un éventail serré de rémiges arrondies sous l’épaule de l’aile — et un sein en goutte, au galbe naturel.</p>
+<div class="grille" id="grille6"></div>
+
+<h2 style="font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,44px);margin:60px 0 8px;">D’après le n° 35</h2>
+<p style="margin:0 0 6px;max-width:52ch;font-size:14.5px;line-height:1.65;color:var(--texte-2);">Les trois retouches demandées sur la 35 : un visage au profil net (la bouche n’est plus qu’une encoche discrète), une poitrine vraiment dessinée, et une aile où chaque plume se détache.</p>
+<div class="grille" id="grille5"></div>
+
+<h2 style="font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,44px);margin:60px 0 8px;">D’après le n° 29</h2>
+<p style="margin:0 0 6px;max-width:52ch;font-size:14.5px;line-height:1.65;color:var(--texte-2);">Le n° 29 retenu, poussé vers le réalisme : un visage de profil esquissé (ou des cheveux longs), un corps affiné, et des ailes d’ange à plumes — déployée ou repliée dans le dos.</p>
+<div class="grille" id="grille4"></div>
+
+<h2 style="font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,44px);margin:60px 0 8px;">De profil</h2>
+<p style="margin:0 0 6px;max-width:52ch;font-size:14.5px;line-height:1.65;color:var(--texte-2);">Le dernier retour : une silhouette de profil, mince et cambrée — poitrine marquée, ventre plat, l’aile dans le dos.</p>
+<div class="grille" id="grille3"></div>
+
+<h2 style="font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,44px);margin:60px 0 8px;">D’après le n° 12</h2>
+<p style="margin:0 0 6px;max-width:52ch;font-size:14.5px;line-height:1.65;color:var(--texte-2);">La même idée — une seule aile — mais avec un corps déhanché, taille creusée et hanche marquée, pour que la silhouette soit clairement féminine et ne ressemble plus à une bouteille.</p>
+<div class="grille" id="grille2"></div>
+
+<h2 style="font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,44px);margin:60px 0 8px;">La première série</h2>
+<div class="grille" id="grille"></div>
+
+<p class="fin"><b>Aucun n’est définitif.</b> On peut aussi croiser deux propositions : le corps de l’une, les ailes de l’autre.</p>
+
+</div>
+
+<script>
+const A = '#C08B77';
+
+/* ---------- corps ---------- */
+
+// galbe, de face : epaule, poitrine, taille, hanche, cuisse, jambe (moitie droite)
+const CORPS = `M60 30 C63.6 30.4 65.2 33 65.6 36.2 C67.2 39.4 69.8 42.4 70.2 47.2
+  C70.6 52.2 67.6 55.4 66 59.2 C64.4 63.2 66.6 67.4 69.6 72
+  C72.2 76.2 71.6 81.4 69.6 87.2 C68 92.4 65.6 98.4 64.6 104.2
+  C64 108 63.6 111 63.3 114 L60 114 Z`;
+
+// plus elance
+const CORPS_FIN = `M60 31 C62.8 31.4 64 33.6 64.4 36.4 C65.6 39 67.4 41.6 67.8 45.6
+  C68.2 49.6 66 52.4 64.8 55.8 C63.6 59.4 65.4 62.8 67.4 66.8
+  C69.2 70.4 68.8 75 67.4 80.4 C66.2 85.2 64.4 91.4 63.6 97.6
+  C63.2 102 62.9 108 62.7 114 L60 114 Z`;
+
+// buste seul, s arrete aux hanches
+const BUSTE = `M60 30 C63.6 30.4 65.2 33 65.6 36.2 C67.2 39.4 69.8 42.4 70.2 47.2
+  C70.6 52.2 67.6 55.4 66 59.2 C64.4 63.2 66.6 67.4 69.6 72
+  C71 74.2 71.4 76.4 71.2 78.4 L60 78.4 Z`;
+
+// de profil, tournee vers la droite
+const PROFIL = `M58 31 C62.4 31 64.6 33.6 65 37.4 C65.4 41.4 63.6 44.6 63.4 48.6
+  C63.2 52.6 65.8 54.6 65.6 58.2 C65.4 62.2 61.8 64 61.6 68.4
+  C61.4 73.4 66 76.6 66.2 82.4 C66.4 88.4 63.6 94 62.6 100
+  C62 104 61.6 109 61.4 114 L55.6 114 C55.4 108.6 55.2 103 54.6 98.6
+  C53.8 92.6 51.6 87 51.8 81.6 C52 76 54.8 72.4 54.6 68
+  C54.4 63.6 51.6 61 51.8 56.6 C52 51.6 54.4 48.4 54.2 44
+  C54 39.6 53.6 35.4 55.4 33 C56.2 31.8 57 31.2 58 31 Z`;
+
+const tete = (cy, r) => `<circle cx="60" cy="${cy}" r="${r}"/>`;
+const mir = 'transform="translate(120,0) scale(-1,1)"';
+const deux = d => `<path d="${d}"/><path d="${d}" ${mir}/>`;
+
+/* ---------- ailes ---------- */
+
+const W_LOBES = `M65 39 C77 35 89 25 97 11 C97 29 90 44 77 53
+  C87 52 94 47 100 40 C97 55 87 66 71 70 Z`;
+
+const W_PLUMES = `M66 38 C76 32 86 22 92 10 C93 24 88 36 79 45 Z
+  M67 47 C78 43 88 35 95 25 C94 40 87 51 76 58 Z
+  M68 56 C78 54 87 48 94 40 C92 54 84 64 72 68 Z`;
+
+const W_HAUTES = `M64 40 C71 32 78 20 81 6 C86 20 84 36 76 48
+  C82 44 87 38 90 30 C91 46 84 60 70 68 Z`;
+
+const W_BASSES = `M65 42 C79 42 92 36 101 26 C99 44 88 60 72 70
+  C80 71 88 69 95 64 C88 79 76 88 64 90 Z`;
+
+const W_V = `M64 40 C74 33 85 22 93 8 C95 24 88 42 72 55 Z`;
+
+const W_DECO = `M65 40 L94 12 L90 30 L66 47 Z
+  M66 50 L96 26 L93 44 L67 58 Z
+  M67 60 L95 42 L91 58 L68 68 Z`;
+
+const W_ARC = `M64 40 C76 34 88 24 96 12 C97 30 88 48 70 62
+  C70 62 66 54 64 40 Z`;
+
+/* ---------- cadres ---------- */
+
+const anneau = `<circle cx="60" cy="60" r="54" fill="none" stroke="${A}" stroke-width="3"/>`;
+const losange = `<path d="M60 4 L116 60 L60 116 L4 60 Z" fill="none" stroke="${A}" stroke-width="3"/>`;
+const arche = `<path d="M9 118 L9 60 A51 51 0 0 1 111 60 L111 118" fill="none" stroke="${A}" stroke-width="3"/>`;
+
+/* ---------- assemblage ---------- */
+
+function svg(inner, extra = '') {
+  return `<svg viewBox="0 0 120 120" ${extra} xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+}
+function plein(ailes, corps, cy = 21.5, r = 7.2, cadre = '', ech = 1) {
+  const g = `<g fill="${A}">${deux(ailes)}${tete(cy, r)}${deux(corps)}</g>`;
+  const dedans = ech === 1 ? g
+    : `<g transform="translate(60,60) scale(${ech}) translate(-60,-62)">${g}</g>`;
+  return svg(cadre + dedans);
+}
+function trait(ailes, corps, cy = 21.5, r = 7, ep = 3, cadre = '', ech = 1) {
+  const sansZ = corps.replace(/\s*Z\s*$/, '');
+  const g = `<g fill="none" stroke="${A}" stroke-width="${ep}" stroke-linecap="round" stroke-linejoin="round">
+      ${deux(ailes)}<circle cx="60" cy="${cy}" r="${r}"/>${deux(sansZ)}</g>`;
+  const dedans = ech === 1 ? g
+    : `<g transform="translate(60,60) scale(${ech}) translate(-60,-62)">${g}</g>`;
+  return svg(cadre + dedans);
+}
+
+/* corps dehanche : taille creusee, hanche sortie (d apres le retour sur le n° 12) */
+const CORPS_F = `M57 30 C61 30.5 63.6 33 64.6 36.4 C67 40 69.6 43.4 69.8 48
+C70 52.6 66.4 55.2 64 58.6 C62.4 61.4 64.4 65 67.4 69.2
+C70.6 73.8 71.2 78.8 69.4 84 C67.2 90.4 64.6 98 63.6 105.4
+C63.3 108.2 63.1 110.6 63 113 L54 113
+C53.8 106.5 53 99.5 51 92.2 C48.6 84 43.6 77.8 43 70.6
+C42.6 64.8 45.8 61 48.6 58 C50.8 55.2 51.6 51 51.2 46.8
+C50.8 42.6 52.2 38.6 54 36.2 C55.2 33.6 55.8 31 57 30 Z`;
+
+function fem(ailes, opts = {}) {
+  const cadre = opts.cadre || '';
+  const ech = opts.ech || 1;
+  const miroir = opts.miroir || false;
+  const deuxAiles = opts.deux || false;
+  let g = `<g fill="${A}">`
+    + (deuxAiles ? deux(ailes) : `<path d="${ailes}"/>`)
+    + `<circle cx="57" cy="21" r="7.2"/><path d="${CORPS_F}"/></g>`;
+  if (miroir) g = `<g transform="translate(120,0) scale(-1,1)">` + g + `</g>`;
+  const dedans = ech === 1 ? g : `<g transform="translate(60,60) scale(${ech}) translate(-60,-62)">${g}</g>`;
+  return svg(cadre + dedans);
+}
+
+/* profil : poitrine, ventre plat, cambrure, fesses ; aile dans le dos */
+const AILE_DOS = `M64 40 C76 36 88 26 96 12 C96 30 89 45 76 54
+  C86 53 93 48 99 41 C96 56 86 67 70 71 Z`;
+const AILE_DOS_PLUMES = `M64 38 C74 32 84 22 90 10 C91 24 86 36 77 45 Z
+  M65 47 C76 43 86 35 93 25 C92 40 85 51 74 58 Z
+  M66 56 C76 54 85 48 92 40 C90 54 82 64 70 68 Z`;
+const AILE_DOS_HAUTE = `M62 40 C69 32 76 20 79 6 C84 20 82 36 74 48
+  C80 44 85 38 88 30 C89 46 82 60 68 68 Z`;
+const CHIGNON = `<circle cx="52.5" cy="21" r="7"/><circle cx="61.5" cy="26.5" r="4.2"/>`;
+const QUEUE = `<circle cx="52.5" cy="21" r="7"/>
+  <path d="M58.5 15.5 C63.5 12.5 68 14 70 18.5 C66.5 19 64 22 63 26.5 C62 31 60.5 34 58 35.5 C59.8 30.5 59.6 20.5 58.5 15.5 Z"/>`;
+
+const PROFIL_C = `M52 28 C50.4 30 49 32.5 48.6 35.5 C46.6 38.6 44.7 41.2 44.5 44.5
+C44.4 47.7 46.8 49.4 48.4 51.7 C49.4 54.2 49.2 58 49.6 62
+C49.9 65.5 50.8 68 52.2 71 C53.8 74.5 52.4 78.5 51.6 83
+C51 88 52.6 92 54.2 97 C55.2 101 55.8 106.5 56 112
+L62.4 112 C62.6 107 62.4 102 61.6 97 C60.8 92 60.2 88 61.2 83.5
+C62.2 78.6 65.4 76 67.6 72.2 C70.4 67.4 69.6 61.6 66 58
+C63.6 55.6 62 53.6 62.2 49.6 C62.4 45.2 61.4 40.8 59.8 37
+C58.8 33.5 57 30 54.6 28 Z`;
+
+const PROFIL_A = `M52 28 C50.6 30 49.4 32.5 49 35.5 C47.2 38.4 45.4 40.9 45.2 44.2
+C45.1 47.3 47.4 49 49 51.3 C50 53.8 49.8 57.6 50.2 61.6
+C50.5 65 51.2 67.6 52.4 70.6 C53.8 74.2 52.6 78.2 52 83
+C51.4 88.2 52.6 93 53.8 98 C54.7 102 55.2 107 55.4 112
+L61.6 112 C61.8 107 61.8 102 61.2 97 C60.6 92 60.2 88 61.2 83.5
+C62.2 78.6 65.2 76.2 67.2 72.6 C69.8 68 69.2 62.4 65.8 58.6
+C63.6 56.2 62.2 53.8 62.4 49.8 C62.6 45.4 61.6 41 60 37
+C59 33.5 57.2 30 54.8 28 Z`;
+
+function prof(aile, corps, tete, opts = {}) {
+  const cadre = opts.cadre || '';
+  const ech = opts.ech || 1;
+  const miroir = opts.miroir || false;
+  let g = `<g fill="${A}"><path d="${aile}"/>` + tete + `<path d="${corps}"/></g>`;
+  if (miroir) g = `<g transform="translate(120,0) scale(-1,1)">` + g + `</g>`;
+  const dedans = ech === 1 ? g : `<g transform="translate(60,60) scale(${ech}) translate(-60,-62)">${g}</g>`;
+  return svg(cadre + dedans);
+}
+
+/* d'apres le n° 29 : realisme (retour de Jean du 01/09 par Telegram) */
+const CORPS_R = `M52 28 C50.4 30 49 32.5 48.6 35.5 C46.6 38.6 44.7 41.2 44.5 44.5
+C44.4 47.7 46.8 49.4 48.4 51.7 C49.4 54.2 49.2 58 49.6 62
+C49.8 65.5 50.1 68 50.9 71 C52.2 74.5 51.6 78.5 51.2 83
+C51 88 52.6 92.4 54 97.4 C54.9 101.2 55.6 106.6 55.8 112
+L62.2 112 C62.4 107 62.2 101.6 61.6 96.6 C61 91.6 60.4 88 61.2 83.5
+C62.2 78.6 65.4 76 67.6 72.2 C70.4 67.4 69.6 61.6 66 58
+C63.6 55.6 62 53.6 62.2 49.6 C62.4 45.2 61.4 40.8 59.8 37
+C58.8 33.5 57 30 54.6 28 Z`;
+
+const VISAGE = `M52.5 12.5 C57.5 11.5 61.5 14.5 62.2 19 C62.7 22.6 61.6 25.6 59 27.6
+L54.8 28.2 C52.8 27.4 51.2 26.2 50.2 24.6 C49 24.2 47.9 23.9 47.1 23.9
+C46.6 23.4 46.7 22.9 47.3 22.5 C46.4 22 45.7 21.3 45.9 20.5
+C46.6 20.1 47.4 20 48.1 20 C48.9 17 50.3 13.4 52.5 12.5 Z`;
+const T_VISAGE = `<path d="${VISAGE}"/><circle cx="61.5" cy="25.5" r="4.4"/>`;
+const T_CHEVEUX = `<path d="${VISAGE}"/>
+<path d="M56 13 C61.5 12 65.5 15.5 66.5 20.5 C67.5 26 66.5 32 63.5 37.5 C61.5 34 60.5 30 60.8 26 C61.2 21.5 59.5 16.5 56 13 Z"/>`;
+
+const A_PLUMES_DEP = `M65 39 C77 35 89 25 97 11
+C97 20 95.8 27 93.8 33 L87.5 40 L91.8 38.8 C88 45.5 83 50 77 53
+C87 52 94 47 100 40 C99.6 46.5 97.6 52.5 94 57.5 L87 62.5 L91.6 61.8
+C86.5 66 79.5 69 71 70 Z`;
+const A_PLUMES_REP = `M62 34 C71 25 83 22 93 26 C101 29 105 36 104 43
+C103 49 101 55.5 97 62 C95.5 59 93.5 57 91 56 C91.5 62 90 68 86 73
+C85 70 83 68.5 80 67.5 C80.5 72.5 78 76.5 74 80 C73 76.5 71.5 73.5 69 72.5
+C68.5 75.5 66 77.5 63 78.5 C62.6 70 62.2 58 62 48 C62 43 62 38 62 34 Z`;
+
+function reel(aile, tete, opts = {}) {
+  const cadre = opts.cadre || '';
+  const ech = opts.ech || 1;
+  const g = `<g fill="${A}"><path d="${aile}"/>` + tete + `<path d="${CORPS_R}"/></g>`;
+  const dedans = ech === 1 ? g : `<g transform="translate(60,60) scale(${ech}) translate(-60,-62)">${g}</g>`;
+  return svg(cadre + dedans);
+}
+
+/* d'apres le n° 35 : v2 (2e retour de Jean, 01/09 apres-midi) */
+const CORPS_V2 = `M52 28 C50.3 29.8 49 32.2 48.5 35
+C47.3 37.2 45 39.6 44.2 42.8 C43.7 45.9 44.3 48.2 46.6 49.9
+C48.2 51.1 49 53.2 49.3 56 C49.6 59.4 49.6 62.6 49.8 65.4
+C50 68 50.3 70 51 72 C52.3 75.2 51.7 78.8 51.2 83
+C51 88 52.6 92.4 54 97.4 C54.9 101.2 55.6 106.6 55.8 112
+L62.2 112 C62.4 107 62.2 101.6 61.6 96.6 C61 91.6 60.4 88 61.2 83.5
+C62.2 78.6 65.4 76 67.6 72.2 C70.4 67.4 69.6 61.6 66 58
+C63.6 55.6 62 53.6 62.2 49.6 C62.4 45.2 61.4 40.8 59.8 37
+C58.8 33.5 57 30 54.6 28 Z`;
+
+const VISAGE_V2 = `M52.5 12.5 C57.5 11.5 61.5 14.5 62.2 19 C62.7 22.6 61.6 25.6 59 27.6
+L54.8 28.2 C52.6 27.2 51 25.8 50 24.2 C48.9 23.9 48 23.6 47.5 23.2
+C47.1 22.8 47.15 22.4 47.5 22 C46.6 21.4 46.0 20.8 46.1 20.1
+C46.4 19.4 47.3 19.3 48.2 19.4 C48.9 16.6 50.4 13.3 52.5 12.5 Z`;
+const TV2_CHEVEUX = `<path d="${VISAGE_V2}"/>
+<path d="M56 13 C61.5 12 65.5 15.5 66.5 20.5 C67.5 26 66.5 32 63.5 37.5 C61.5 34 60.5 30 60.8 26 C61.2 21.5 59.5 16.5 56 13 Z"/>`;
+const TV2_CHIGNON = `<path d="${VISAGE_V2}"/><circle cx="61.8" cy="26" r="4.4"/>`;
+
+function fenteV2(x1, y1, x2, y2, w = 1.5, bombe = 1.5) {
+  const dx = x2 - x1, dy = y2 - y1;
+  const L = Math.hypot(dx, dy);
+  const nx = -dy / L, ny = dx / L;
+  const mx = (x1 + x2) / 2 + nx * bombe, my = (y1 + y2) / 2 + ny * bombe;
+  return `M${x1} ${y1} Q${mx + nx * w / 2} ${my + ny * w / 2} ${x2} ${y2}
+    L${x2 - nx * w} ${y2 - ny * w} Q${mx - nx * w / 2} ${my - ny * w / 2} ${x1 + nx * w * 0.3} ${y1 + ny * w * 0.3} Z`;
+}
+const AILE_V2 = (() => {
+  const masse = `M62 33 C70 24.5 82 21.5 92 25.5 C100 28.5 104.5 35.5 104 43
+    C103.5 50 101.5 57.5 97.5 64.5 C96 61.5 94 59.5 91.5 58.5
+    C92 65 90.5 71.5 86.5 77.5 C85.5 74.5 83.5 72.5 80.5 71.5
+    C81 77 78.5 82 74.5 86 C73.5 82.5 72 79.5 69.5 78.5
+    C69 81.5 66.5 83.5 63.5 84.5 C62.8 74 62.3 60 62.1 48
+    C62 43 62 37 62 33 Z`;
+  return masse + ' ' + fenteV2(93.5, 57, 87, 43.5) + ' ' + fenteV2(83, 70, 77, 50) + ' ' + fenteV2(71.5, 77.5, 67.5, 58);
+})();
+
+function v2(tete, opts = {}) {
+  const cadre = opts.cadre || '';
+  const ech = opts.ech || 1;
+  let g = `<g fill="${A}"><path fill-rule="evenodd" d="${AILE_V2}"/>` + tete + `<path d="${CORPS_V2}"/></g>`;
+  if (ech !== 1) g = `<g transform="translate(60,60) scale(${ech}) translate(-60,-62)">${g}</g>`;
+  return svg(cadre + g);
+}
+
+/* 3e passe (retour de Jean, 01/09 apres-midi) : aile d ange plume par plume, sein en goutte */
+const CORPS_V3 = `M52 28 C50.3 29.8 49 32.2 48.5 35
+C47.8 36.6 46 38.8 44.8 41.6 C44.2 42.4 44.0 43.2 44.3 44.1
+C44.6 46.9 45.6 48.7 47.6 49.9
+C48.2 51.1 49 53.2 49.3 56 C49.6 59.4 49.6 62.6 49.8 65.4
+C50 68 50.3 70 51 72 C52.3 75.2 51.7 78.8 51.2 83
+C51 88 52.6 92.4 54 97.4 C54.9 101.2 55.6 106.6 55.8 112
+L62.2 112 C62.4 107 62.2 101.6 61.6 96.6 C61 91.6 60.4 88 61.2 83.5
+C62.2 78.6 65.4 76 67.6 72.2 C70.4 67.4 69.6 61.6 66 58
+C63.6 55.6 62 53.6 62.2 49.6 C62.4 45.2 61.4 40.8 59.8 37
+C58.8 33.5 57 30 54.6 28 Z`;
+
+let _mid = 0;
+function plumeAnge(bx, by, ang, long, larg) {
+  const r = ang * Math.PI / 180;
+  const qx = bx + long * Math.cos(r), qy = by + long * Math.sin(r);
+  const nx = -Math.sin(r), ny = Math.cos(r);
+  return `M${bx} ${by} C${bx + nx * larg} ${by + ny * larg} ${qx + nx * larg * 0.45} ${qy + ny * larg * 0.45} ${qx} ${qy}
+    C${qx - nx * larg * 0.45} ${qy - ny * larg * 0.45} ${bx - nx * larg} ${by - ny * larg} ${bx} ${by} Z`;
+}
+function fenteAnge(x1, y1, x2, y2, w = 1.6, bombe = 0.8) {
+  const dx = x2 - x1, dy = y2 - y1;
+  const L = Math.hypot(dx, dy);
+  const nx = -dy / L, ny = dx / L;
+  const mx = (x1 + x2) / 2 + nx * bombe, my = (y1 + y2) / 2 + ny * bombe;
+  return `M${x1} ${y1} Q${mx + nx * w / 2} ${my + ny * w / 2} ${x2} ${y2}
+    L${x2 - nx * w} ${y2 - ny * w} Q${mx - nx * w / 2} ${my - ny * w / 2} ${x1 + nx * w * 0.3} ${y1 + ny * w * 0.3} Z`;
+}
+function aileAnge() {
+  const px = 66, py = 34;
+  const angles = [40, 50, 60, 70, 79, 87];
+  const longs  = [48, 56, 62, 62, 56, 48];
+  const plumes = angles.map((a, i) => plumeAnge(px, py, a, longs[i], 10.5)).join(' ');
+  const bras = `M62 32 C70 24 80.5 21.5 90 24.5 C95.5 26.5 99.5 30 101 34.5
+    C102 38.5 101 42.5 98.5 46 C95 41.5 90 39 84 38.5
+    C77 38 70 39.5 64 43 C62.5 39.5 62 35.5 62 32 Z`;
+  const fentes = [];
+  for (let i = 1; i < angles.length; i++) {
+    const a = (angles[i] + angles[i - 1]) / 2 * Math.PI / 180;
+    const L = Math.min(longs[i], longs[i - 1]);
+    fentes.push(fenteAnge(px + Math.cos(a) * (L + 3), py + Math.sin(a) * (L + 3),
+                          px + Math.cos(a) * L * 0.62, py + Math.sin(a) * L * 0.62));
+  }
+  const id = 'ailem' + (_mid++);
+  return `<defs><mask id="${id}"><rect x="0" y="0" width="120" height="120" fill="white"/>
+      <path d="${fentes.join(' ')}" fill="black"/></mask></defs>
+    <g mask="url(#${id})"><path d="${plumes} ${bras}"/></g>`;
+}
+function v3(tete, opts = {}) {
+  const cadre = opts.cadre || '';
+  const ech = opts.ech || 1;
+  let g = `<g fill="${A}">` + aileAnge() + tete + `<path d="${CORPS_V3}"/></g>`;
+  if (ech !== 1) g = `<g transform="translate(60,60) scale(${ech}) translate(-60,-62)">${g}</g>`;
+  return svg(cadre + g);
+}
+
+/* 4e passe (01/09 ~14h) : bouche RETIREE, sein projete, aile a 2 rangees de plumes */
+const CORPS_V4 = `M52 28 C50.3 29.8 49 32.2 48.5 35
+C47.6 36.4 45.2 38.4 43.4 41.2 C42.4 42.4 42.1 43.6 42.6 44.9
+C43.2 47.9 44.9 49.7 47.6 50.4
+C48.2 51.4 49 53.4 49.3 56 C49.6 59.4 49.6 62.6 49.8 65.4
+C50 68 50.3 70 51 72 C52.3 75.2 51.7 78.8 51.2 83
+C51 88 52.6 92.4 54 97.4 C54.9 101.2 55.6 106.6 55.8 112
+L62.2 112 C62.4 107 62.2 101.6 61.6 96.6 C61 91.6 60.4 88 61.2 83.5
+C62.2 78.6 65.4 76 67.6 72.2 C70.4 67.4 69.6 61.6 66 58
+C63.6 55.6 62 53.6 62.2 49.6 C62.4 45.2 61.4 40.8 59.8 37
+C58.8 33.5 57 30 54.6 28 Z`;
+
+const VISAGE_V3 = `M52.5 12.5 C57.5 11.5 61.5 14.5 62.2 19 C62.7 22.6 61.6 25.6 59 27.6
+L54.8 28.2 C52.4 27.2 50.6 25.6 49.5 23.8 C48.6 23 47.6 22.4 46.9 22.1
+C46.3 21.5 45.9 20.8 46.1 20.1 C46.4 19.4 47.3 19.3 48.2 19.4
+C48.9 16.6 50.4 13.3 52.5 12.5 Z`;
+const TV3_CHEVEUX = `<path d="${VISAGE_V3}"/>
+<path d="M56 13 C61.5 12 65.5 15.5 66.5 20.5 C67.5 26 66.5 32 63.5 37.5 C61.5 34 60.5 30 60.8 26 C61.2 21.5 59.5 16.5 56 13 Z"/>`;
+const TV3_CHIGNON = `<path d="${VISAGE_V3}"/><circle cx="61.8" cy="26" r="4.4"/>`;
+
+function aileGravure() {
+  const px = 66, py = 34;
+  const idr = 'gr' + (_mid++), idc = 'gc' + (_mid++);
+  const angR = [40, 49, 58, 67, 76, 84, 91];
+  const lonR = [46, 54, 60, 63, 60, 54, 46];
+  const remiges = angR.map((a, i) => plumeAnge(px, py, a, lonR[i], 9.5)).join(' ');
+  const fR = [];
+  for (let i = 1; i < angR.length; i++) {
+    const a = (angR[i] + angR[i - 1]) / 2 * Math.PI / 180;
+    const L = Math.min(lonR[i], lonR[i - 1]);
+    fR.push(fenteAnge(px + Math.cos(a) * (L + 3), py + Math.sin(a) * (L + 3),
+                      px + Math.cos(a) * L * 0.55, py + Math.sin(a) * L * 0.55, 1.5, 0.6));
+  }
+  const angC = [44, 56, 68, 80];
+  const lonC = [30, 34, 34, 30];
+  const couv = angC.map((a, i) => plumeAnge(px, py, a, lonC[i], 9)).join(' ');
+  const fC = [];
+  for (let i = 1; i < angC.length; i++) {
+    const a = (angC[i] + angC[i - 1]) / 2 * Math.PI / 180;
+    const L = Math.min(lonC[i], lonC[i - 1]);
+    fC.push(fenteAnge(px + Math.cos(a) * (L + 2.5), py + Math.sin(a) * (L + 2.5),
+                      px + Math.cos(a) * L * 0.4, py + Math.sin(a) * L * 0.4, 1.4, 0.5));
+  }
+  const bras = `M62 31.5 C69 24.5 78.5 22 87.5 24.5 C93 26.2 96.5 29.5 98 33.5
+    C99 37 98.5 40.5 96.5 43.5 C93 39.5 88.5 37.5 83 37.5
+    C76.5 37.5 70 39.5 64 43 C62.5 39 62 35 62 31.5 Z`;
+  return `<defs>
+      <mask id="${idr}"><rect x="0" y="0" width="120" height="120" fill="white"/><path d="${fR.join(' ')}" fill="black"/></mask>
+      <mask id="${idc}"><rect x="0" y="0" width="120" height="120" fill="white"/><path d="${fC.join(' ')}" fill="black"/></mask>
+    </defs>
+    <g mask="url(#${idr})"><path d="${remiges}"/></g>
+    <g mask="url(#${idc})"><path d="${couv}"/></g>
+    <path d="${bras}"/>`;
+}
+function v4(tete, opts = {}) {
+  const cadre = opts.cadre || '';
+  const ech = opts.ech || 1;
+  let g = `<g fill="${A}">` + aileGravure() + tete + `<path d="${CORPS_V4}"/></g>`;
+  if (ech !== 1) g = `<g transform="translate(60,60) scale(${ech}) translate(-60,-62)">${g}</g>`;
+  return svg(cadre + g);
+}
+
+/* 5e passe (01/09 ~14h30) : tete lisse (zero trait de visage), raccords d aile nettoyes */
+const TETE_V5 = `<circle cx="53" cy="20" r="7.8"/>
+<path d="M57 13.5 C62 12.5 66 15.5 67 20.5 C68 25.5 67 31 64.5 36.5
+C62 33 60.5 29 60.6 25 C60.7 21 59.5 16.5 57 13.5 Z"/>
+<circle cx="63.2" cy="27.5" r="4.6"/>`;
+
+function aileGravure2() {
+  const px = 66, py = 34;
+  const idr = 'g2r' + (_mid++), idc = 'g2c' + (_mid++);
+  const angR = [40, 49, 58, 67, 75, 82, 87];
+  const lonR = [46, 54, 60, 63, 60, 53, 44];
+  const remiges = angR.map((a, i) => plumeAnge(px, py, a, lonR[i], 9.5)).join(' ');
+  const fR = [];
+  for (let i = 1; i < angR.length; i++) {
+    const a = (angR[i] + angR[i - 1]) / 2 * Math.PI / 180;
+    const L = Math.min(lonR[i], lonR[i - 1]);
+    fR.push(fenteAnge(px + Math.cos(a) * (L + 3), py + Math.sin(a) * (L + 3),
+                      px + Math.cos(a) * L * 0.55, py + Math.sin(a) * L * 0.55, 1.5, 0.6));
+  }
+  const angC = [44, 56, 68, 80];
+  const lonC = [30, 34, 34, 30];
+  const couv = angC.map((a, i) => plumeAnge(px, py, a, lonC[i], 9)).join(' ');
+  const fC = [];
+  for (let i = 1; i < angC.length; i++) {
+    const a = (angC[i] + angC[i - 1]) / 2 * Math.PI / 180;
+    const L = Math.min(lonC[i], lonC[i - 1]);
+    fC.push(fenteAnge(px + Math.cos(a) * (L + 2.5), py + Math.sin(a) * (L + 2.5),
+                      px + Math.cos(a) * L * 0.4, py + Math.sin(a) * L * 0.4, 1.4, 0.5));
+  }
+  const bras = `M62 31.5 C69 24.5 78.5 22 87.5 24.5 C93 26.2 96.5 29.5 98 33.5
+    C99 37 98.5 40.5 96.5 43.5 C93 40.5 88.5 39 83 39
+    C76.5 39 70 40.5 64 43.5 C62.5 39 62 35 62 31.5 Z`;
+  return `<defs>
+      <mask id="${idr}"><rect x="0" y="0" width="120" height="120" fill="white"/><path d="${fR.join(' ')}" fill="black"/></mask>
+      <mask id="${idc}"><rect x="0" y="0" width="120" height="120" fill="white"/><path d="${fC.join(' ')}" fill="black"/></mask>
+    </defs>
+    <g mask="url(#${idr})"><path d="${remiges}"/></g>
+    <g mask="url(#${idc})"><path d="${couv}"/></g>
+    <path d="${bras}"/>`;
+}
+function v5(opts = {}) {
+  const cadre = opts.cadre || '';
+  const ech = opts.ech || 1;
+  let g = `<g fill="${A}">` + aileGravure2() + TETE_V5 + `<path d="${CORPS_V4}"/></g>`;
+  if (ech !== 1) g = `<g transform="translate(60,60) scale(${ech}) translate(-60,-62)">${g}</g>`;
+  return svg(cadre + g);
+}
+
+/* embleme (01/09 ~15h) : cercle DIVIN noir/violet/dore, d apres la reference envoyee par Jean */
+const OR_E = '#D2A94E', ORC_E = '#E6C87E', VIOLET = '#8A55B0', VIOLET_SOMBRE = '#241531', NOIR = '#0E0A12';
+
+function plumeE(bx, by, ang, long, larg) {
+  const r = ang * Math.PI / 180;
+  const px = bx + long * Math.cos(r), py = by + long * Math.sin(r);
+  const nx = -Math.sin(r), ny = Math.cos(r);
+  return `M${bx} ${by} C${bx + nx * larg} ${by + ny * larg} ${px + nx * larg * 0.45} ${py + ny * larg * 0.45} ${px} ${py}
+    C${px - nx * larg * 0.45} ${py - ny * larg * 0.45} ${bx - nx * larg} ${by - ny * larg} ${bx} ${by} Z`;
+}
+function fenteE(x1, y1, x2, y2, w = 1.5, bombe = 0.6) {
+  const dx = x2 - x1, dy = y2 - y1;
+  const L = Math.hypot(dx, dy);
+  const nx = -dy / L, ny = dx / L;
+  const mx = (x1 + x2) / 2 + nx * bombe, my = (y1 + y2) / 2 + ny * bombe;
+  return `M${x1} ${y1} Q${mx + nx * w / 2} ${my + ny * w / 2} ${x2} ${y2}
+    L${x2 - nx * w} ${y2 - ny * w} Q${mx - nx * w / 2} ${my - ny * w / 2} ${x1 + nx * w * 0.3} ${y1 + ny * w * 0.3} Z`;
+}
+
+/* aile 3 rangees (geometrie v6) — rendue dans une couleur donnee */
+function aile(couleur) {
+  const px = 66, py = 34;
+  const idr = 'er' + (_mid++), idm = 'em' + (_mid++), idc = 'ec' + (_mid++);
+  const angR = [40, 49, 58, 67, 75, 82, 87], lonR = [46, 54, 60, 63, 60, 53, 44];
+  const angM = [41, 51, 61, 71, 80, 86], lonM = [34, 40, 45, 46, 43, 36];
+  const angC = [44, 58, 72, 84], lonC = [22, 26, 26, 22];
+  const paths = (angs, lons, larg) => angs.map((a, i) => plumeE(px, py, a, lons[i], larg)).join(' ');
+  const fentes = (angs, lons, marge, prof, w) => {
+    const out = [];
+    for (let i = 1; i < angs.length; i++) {
+      const a = (angs[i] + angs[i - 1]) / 2 * Math.PI / 180;
+      const L = Math.min(lons[i], lons[i - 1]);
+      out.push(fenteE(px + Math.cos(a) * (L + marge), py + Math.sin(a) * (L + marge),
+                     px + Math.cos(a) * L * prof, py + Math.sin(a) * L * prof, w));
+    }
+    return out.join(' ');
+  };
+  const bras = `M62 31.5 C69 24.5 78.5 22 87.5 24.5 C93 26.2 96.5 29.5 98 33.5
+    C99 37 98.5 40.5 96.5 43.5 C93 40.5 88.5 39 83 39
+    C76.5 39 70 40.5 64 43.5 C62.5 39 62 35 62 31.5 Z`;
+  return `<defs>
+      <mask id="${idr}"><rect width="120" height="120" fill="white"/><path d="${fentes(angR, lonR, 3, 0.55, 1.5)}" fill="black"/></mask>
+      <mask id="${idm}"><rect width="120" height="120" fill="white"/><path d="${fentes(angM, lonM, 2.5, 0.45, 1.4)}" fill="black"/></mask>
+      <mask id="${idc}"><rect width="120" height="120" fill="white"/><path d="${fentes(angC, lonC, 2.5, 0.4, 1.3)}" fill="black"/></mask>
+    </defs>
+    <g fill="${couleur}">
+      <g mask="url(#${idr})"><path d="${paths(angR, lonR, 9.5)}"/></g>
+      <g mask="url(#${idm})"><path d="${paths(angM, lonM, 8.5)}"/></g>
+      <g mask="url(#${idc})"><path d="${paths(angC, lonC, 9)}"/></g>
+      <path d="${bras}"/>
+    </g>`;
+}
+
+const CORPS_E = `M52 28 C50.3 29.8 49 32.2 48.5 35
+C47.6 36.4 45.2 38.4 43.4 41.2 C42.4 42.4 42.1 43.6 42.6 44.9
+C43.2 47.9 44.9 49.7 47.6 50.4
+C48.2 51.4 49 53.4 49.3 56 C49.6 59.4 49.6 62.6 49.8 65.4
+C50 68 50.3 70 51 72 C52.3 75.2 51.7 78.8 51.2 83
+C51 88 52.6 92.4 54 97.4 C54.9 101.2 55.6 106.6 55.8 112
+L62.2 112 C62.4 107 62.2 101.6 61.6 96.6 C61 91.6 60.4 88 61.2 83.5
+C62.2 78.6 65.4 76 67.6 72.2 C70.4 67.4 69.6 61.6 66 58
+C63.6 55.6 62 53.6 62.2 49.6 C62.4 45.2 61.4 40.8 59.8 37
+C58.8 33.5 57 30 54.6 28 Z`;
+
+const TETE_E = `<circle cx="53" cy="20" r="7.8"/>`;
+const MECHES_E = `M56 12.5 C62.5 11 67.5 14.5 68.5 20 C69.5 26 69 32 67.5 38
+C68.5 42.5 68 47 65.5 51 C64.5 47.5 64 44.5 64 41.5
+C63 44.5 61.5 47 59.5 48.5 C59.5 45 59.5 42 60 39
+C59 34 58.5 28 58.8 23 C58 18.5 57 14.5 56 12.5 Z`;
+
+/* silhouette complete, couleurs parametrees */
+function ange(cCorps, cAile, cMeches, cAureole) {
+  return aile(cAile)
+    + `<g fill="${cMeches}"><path d="${MECHES_E}"/></g>`
+    + `<g fill="${cCorps}">${TETE_E}<path d="${CORPS_E}"/></g>`
+    + `<ellipse cx="52" cy="8.2" rx="7.6" ry="2.3" fill="none" stroke="${cAureole}" stroke-width="1.7"/>`;
+}
+
+/* embleme circulaire : fond noir-violet, double anneau or, DIVIN sur l arc */
+function embleme(variante) {
+  const idg = 'fond' + (_mid++), ida = 'arc' + (_mid++);
+  let silhouette;
+  if (variante === 'aile-violette') silhouette = ange(OR_E, VIOLET, VIOLET, OR_E);
+  else if (variante === 'tout-or') silhouette = ange(OR_E, OR_E, OR_E, OR_E);
+  else silhouette = ange(OR_E, VIOLET, OR_E, OR_E);   // meches or
+  return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="${idg}" cx="50%" cy="42%" r="65%">
+        <stop offset="0%" stop-color="${VIOLET_SOMBRE}"/>
+        <stop offset="100%" stop-color="${NOIR}"/>
+      </radialGradient>
+      <path id="${ida}" d="M 21 60 A 39 39 0 0 1 99 60" fill="none"/>
+    </defs>
+    <circle cx="60" cy="60" r="58.5" fill="url(#${idg})"/>
+    <circle cx="60" cy="60" r="56.6" fill="none" stroke="${OR_E}" stroke-width="1.1"/>
+    <circle cx="60" cy="60" r="53.4" fill="none" stroke="${OR_E}" stroke-width="0.55"/>
+    <text font-family="'Cormorant Garamond', Georgia, serif" font-size="14.5" font-weight="600"
+      fill="${ORC_E}" letter-spacing="6.5">
+      <textPath href="#${ida}" startOffset="50%" text-anchor="middle">DIVIN</textPath>
+    </text>
+    <g transform="translate(60,66) scale(0.62) translate(-57,-62)">${silhouette}</g>
+  </svg>`;
+}
+
+
+/* agenouillee (01/09 ~16h) : pose de la reference redessinee, DIVIN sous le cercle */
+const OR_K = '#D2A94E', ORC_K = '#E6C87E', VIOLET_K = '#8A55B0', VIOLETS_K = '#241531', NOIR_K = '#0E0A12';
+function plumeK(bx, by, ang, long, larg) {
+  const r = ang * Math.PI / 180;
+  const px = bx + long * Math.cos(r), py = by + long * Math.sin(r);
+  const nx = -Math.sin(r), ny = Math.cos(r);
+  return `M${bx} ${by} C${bx + nx * larg} ${by + ny * larg} ${px + nx * larg * 0.45} ${py + ny * larg * 0.45} ${px} ${py}
+    C${px - nx * larg * 0.45} ${py - ny * larg * 0.45} ${bx - nx * larg} ${by - ny * larg} ${bx} ${by} Z`;
+}
+function fenteK(x1, y1, x2, y2, w = 1.5, bombe = 0.6) {
+  const dx = x2 - x1, dy = y2 - y1;
+  const L = Math.hypot(dx, dy);
+  const nx = -dy / L, ny = dx / L;
+  const mx = (x1 + x2) / 2 + nx * bombe, my = (y1 + y2) / 2 + ny * bombe;
+  return `M${x1} ${y1} Q${mx + nx * w / 2} ${my + ny * w / 2} ${x2} ${y2}
+    L${x2 - nx * w} ${y2 - ny * w} Q${mx - nx * w / 2} ${my - ny * w / 2} ${x1 + nx * w * 0.3} ${y1 + ny * w * 0.3} Z`;
+}
+
+/* corps AGENOUILLE de profil (pose de la reference, dessin original) */
+const CORPS_K = `M52 29
+C50.2 30.5 48.8 32.5 48 35
+C46 37.2 43.8 39.8 43 42.6
+C42.5 43.8 42.7 45 43.4 46
+C44.4 48 46 49.2 47.6 50
+C48.2 52.5 48.6 55.5 48.8 58.5
+C48.9 60.5 48.9 62 48.8 63.5
+C45.5 65.5 40 68 35.5 71.5
+C31.5 74.5 29 78 28.8 81.5
+C28.7 84.5 30 86.8 32.5 87.8
+C39 89.3 47 89.8 54 89.8
+C58 89.8 61.5 89 63 86.8
+C64.2 84 63.6 80.5 61.8 77.5
+C60.2 74.5 59.6 71 59.8 67
+C59.9 62.5 59 57.5 58.2 53
+C57.4 48.5 56.6 43.5 56 39.5
+C55.4 35.5 54 31.5 52 29 Z`;
+
+const TETE_K = `<circle cx="51" cy="19.5" r="7.4"/>`;
+const MECHES_K = `M53 13.5 C59.5 12 64.5 15.5 65.5 21 C66.5 27 66 33.5 64 40
+C65 44.5 64.5 49 62 53 C61 49.5 60.5 46.5 60.5 43.5
+C59.5 46.5 58 49 56 50.5 C56 47 56.2 44 56.7 41
+C55.7 35.5 55.2 29 55.5 24 C55 19.5 54.2 15.5 53 13.5 Z`;
+const AUREOLE_K = (c) => `<ellipse cx="50" cy="7.2" rx="7.4" ry="2.2" fill="none" stroke="${c}" stroke-width="1.7"/>`;
+
+/* aile 3 rangees, pivot adapte a la pose agenouillee */
+function aileK(couleur) {
+  const px = 62, py = 38;
+  const idr = 'kr' + (_mid++), idm = 'km' + (_mid++), idc = 'kc' + (_mid++);
+  const angR = [22, 32, 42, 52, 62, 71, 79], lonR = [50, 57, 62, 64, 61, 55, 46];
+  const angM = [24, 35, 46, 57, 67, 76], lonM = [36, 42, 46, 47, 44, 37];
+  const angC = [28, 42, 56, 70], lonC = [23, 27, 27, 23];
+  const paths = (angs, lons, larg) => angs.map((a, i) => plumeK(px, py, a, lons[i], larg)).join(' ');
+  const fentes = (angs, lons, marge, prof, w) => {
+    const out = [];
+    for (let i = 1; i < angs.length; i++) {
+      const a = (angs[i] + angs[i - 1]) / 2 * Math.PI / 180;
+      const L = Math.min(lons[i], lons[i - 1]);
+      out.push(fenteK(px + Math.cos(a) * (L + marge), py + Math.sin(a) * (L + marge),
+                     px + Math.cos(a) * L * prof, py + Math.sin(a) * L * prof, w));
+    }
+    return out.join(' ');
+  };
+  const bras = `M58 34 C64.5 27 74 24 83.5 26.5 C89 28.2 93 31.5 94.5 35.5
+    C95.5 39 95 42.5 93 46 C89.5 42.5 85 40.5 79.5 40.5
+    C73 40.5 66.5 42.5 60.5 46 C58.8 42 58 38 58 34 Z`;
+  return `<defs>
+      <mask id="${idr}"><rect width="120" height="120" fill="white"/><path d="${fentes(angR, lonR, 3, 0.55, 1.5)}" fill="black"/></mask>
+      <mask id="${idm}"><rect width="120" height="120" fill="white"/><path d="${fentes(angM, lonM, 2.5, 0.45, 1.4)}" fill="black"/></mask>
+      <mask id="${idc}"><rect width="120" height="120" fill="white"/><path d="${fentes(angC, lonC, 2.5, 0.4, 1.3)}" fill="black"/></mask>
+    </defs>
+    <g fill="${couleur}">
+      <g mask="url(#${idr})"><path d="${paths(angR, lonR, 9.5)}"/></g>
+      <g mask="url(#${idm})"><path d="${paths(angM, lonM, 8.5)}"/></g>
+      <g mask="url(#${idc})"><path d="${paths(angC, lonC, 9)}"/></g>
+      <path d="${bras}"/>
+    </g>`;
+}
+
+function angeK(cCorps, cAile, cMeches, cAureole) {
+  return aileK(cAile)
+    + `<g fill="${cMeches}"><path d="${MECHES_K}"/></g>`
+    + `<g fill="${cCorps}">${TETE_K}<path d="${CORPS_K}"/></g>`
+    + AUREOLE_K(cAureole);
+}
+
+/* embleme : cercle, ange agenouillee, DIVIN EN DESSOUS */
+function embleme2(variante) {
+  const idg = 'kfond' + (_mid++);
+  let sil;
+  if (variante === 'violette') sil = angeK(OR_K, VIOLET_K, VIOLET_K, OR_K);
+  else if (variante === 'or') sil = angeK(OR_K, OR_K, OR_K, OR_K);
+  else sil = angeK(OR_K, VIOLET_K, OR_K, OR_K);
+  return `<svg viewBox="0 0 120 132" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="${idg}" cx="50%" cy="42%" r="65%">
+        <stop offset="0%" stop-color="${VIOLETS_K}"/>
+        <stop offset="100%" stop-color="${NOIR_K}"/>
+      </radialGradient>
+    </defs>
+    <circle cx="60" cy="52" r="50" fill="url(#${idg})"/>
+    <circle cx="60" cy="52" r="48.4" fill="none" stroke="${OR_K}" stroke-width="1.1"/>
+    <circle cx="60" cy="52" r="45.6" fill="none" stroke="${OR_K}" stroke-width="0.55"/>
+    <g transform="translate(60,54) scale(0.72) translate(-56,-52)">${sil}</g>
+    <text x="60" y="122" font-family="'Cormorant Garamond', Georgia, serif" font-size="15.5" font-weight="600"
+      fill="${ORC_K}" letter-spacing="6" text-anchor="middle">DIVIN</text>
+  </svg>`;
+}
+
+
+const LOGOS10 = [
+  ['52', 'L’agenouillée', 'Corps doré, aile violette, DIVIN sous le cercle.', embleme2('defaut')],
+  ['53', 'Chevelure violette', 'L’aile et les mèches en violet.', embleme2('violette')],
+  ['54', 'Tout doré', 'Une seule couleur sur le fond noir-violet.', embleme2('or')],
+];
+
+const LOGOS9 = [
+  ['49', 'Chevelure d’or', 'Corps et mèches dorés, l’aile violette. Le plus lisible.', embleme('defaut')],
+  ['50', 'Aile et mèches violettes', 'Seul le corps reste doré.', embleme('aile-violette')],
+  ['51', 'Tout doré', 'Une seule couleur sur le fond noir-violet.', embleme('tout-or')],
+];
+
+const LOGOS8 = [
+  ['47', 'Sans visage', 'Tête lisse au chignon, poitrine projetée, aile gravée. Dans l’anneau.', v5({cadre: anneau, ech: 0.76})],
+  ['48', 'Sans visage, seule', 'La même, sans l’anneau.', v5()],
+];
+
+const LOGOS7 = [
+  ['44', 'La gravure', 'Deux rangées de plumes, sein projeté, profil lisse. Dans l’anneau.', v4(TV3_CHEVEUX, {cadre: anneau, ech: 0.76})],
+  ['45', 'La gravure, seule', 'La même, sans l’anneau.', v4(TV3_CHEVEUX)],
+  ['46', 'Chignon', 'Le visage dégagé, dans l’anneau.', v4(TV3_CHIGNON, {cadre: anneau, ech: 0.76})],
+];
+
+const LOGOS6 = [
+  ['41', 'L’ange', 'Aile plume par plume, sein en goutte, dans l’anneau.', v3(TV2_CHEVEUX, {cadre: anneau, ech: 0.76})],
+  ['42', 'L’ange, seule', 'La même, sans l’anneau.', v3(TV2_CHEVEUX)],
+  ['43', 'Chignon', 'Le visage dégagé, dans l’anneau.', v3(TV2_CHIGNON, {cadre: anneau, ech: 0.76})],
+];
+
+const LOGOS5 = [
+  ['38', 'La 35, corrigée', 'Visage net, poitrine dessinée, plumes détachées. Dans l’anneau.', v2(TV2_CHEVEUX, {cadre: anneau, ech: 0.76})],
+  ['39', 'La même, seule', 'Sans l’anneau, pour voir la silhouette.', v2(TV2_CHEVEUX)],
+  ['40', 'Chignon', 'Le visage dégagé par un chignon bas, dans l’anneau.', v2(TV2_CHIGNON, {cadre: anneau, ech: 0.76})],
+];
+
+const LOGOS4 = [
+  ['32', 'La 29, réaliste', 'Visage esquissé, aile d’ange à plumes, dans l’anneau.', reel(A_PLUMES_DEP, T_VISAGE, {cadre: anneau, ech: 0.76})],
+  ['33', 'Cheveux longs', 'La même, la chevelure tombe dans le dos.', reel(A_PLUMES_DEP, T_CHEVEUX, {cadre: anneau, ech: 0.76})],
+  ['34', 'Aile repliée', 'L’aile au repos le long du dos, plumes vers le bas.', reel(A_PLUMES_REP, T_VISAGE, {cadre: anneau, ech: 0.76})],
+  ['35', 'Repliée, cheveux', 'Aile au repos et cheveux longs.', reel(A_PLUMES_REP, T_CHEVEUX, {cadre: anneau, ech: 0.76})],
+  ['36', 'Sans l’anneau', 'La 32 seule, pour voir la silhouette nue.', reel(A_PLUMES_DEP, T_VISAGE)],
+  ['37', 'Repliée, sans anneau', 'La 35 seule.', reel(A_PLUMES_REP, T_CHEVEUX)],
+];
+
+const LOGOS3 = [
+  ['24', 'La cambrée', 'Profil, chignon bas, l’aile dans le dos.', prof(AILE_DOS, PROFIL_C, CHIGNON)],
+  ['25', 'Queue de cheval', 'La même, cheveux attachés en arrière.', prof(AILE_DOS, PROFIL_C, QUEUE)],
+  ['26', 'Plumes au dos', 'L’aile se lit plume par plume.', prof(AILE_DOS_PLUMES, PROFIL_C, CHIGNON)],
+  ['27', 'Aile haute', 'L’aile serrée, presque verticale.', prof(AILE_DOS_HAUTE, PROFIL_C, CHIGNON)],
+  ['28', 'Athlétique', 'Buste plus droit, jambe tendue.', prof(AILE_DOS, PROFIL_A, CHIGNON)],
+  ['29', 'Dans l’anneau', 'La 24 tenue dans un cercle : prête en icône.', prof(AILE_DOS, PROFIL_C, CHIGNON, {cadre: anneau, ech: 0.76})],
+  ['30', 'Vers la droite', 'La même, retournée.', prof(AILE_DOS, PROFIL_C, CHIGNON, {miroir: true})],
+  ['31', 'Sans rien d’autre', 'Le corps seul avec l’aile haute, le plus épuré.', prof(AILE_DOS_HAUTE, PROFIL_A, CHIGNON)],
+];
+
+const LOGOS2 = [
+  ['16', 'La 12, féminine', 'Le n° 12 tel quel, avec le nouveau corps.', fem(W_LOBES)],
+  ['17', 'Plumes', 'Une aile qui se lit plume par plume.', fem(W_PLUMES)],
+  ['18', 'Aile haute', 'L’aile serrée, presque verticale.', fem(W_HAUTES)],
+  ['19', 'Les deux ailes', 'Le corps déhanché avec les ailes du n° 01.', fem(W_LOBES, {deux: true})],
+  ['20', 'Enveloppante', 'L’aile descend et entoure la hanche.', fem(W_BASSES)],
+  ['21', 'Dans l’anneau', 'La 16, tenue dans un cercle : prête en icône.', fem(W_LOBES, {cadre: anneau, ech: 0.76})],
+  ['22', 'Vers la gauche', 'La même, retournée : la hanche répond à l’aile.', fem(W_LOBES, {miroir: true})],
+  ['23', 'Art déco', 'Une aile en lignes droites, années trente.', fem(W_DECO)],
+];
+
+const LOGOS = [
+  ['01', 'Le premier', 'Celui qui est en ligne. Ailes pleines en deux lobes.', plein(W_LOBES, CORPS)],
+  ['02', 'Trois plumes', 'Les ailes se lisent plume par plume.', plein(W_PLUMES, CORPS)],
+  ['03', 'Ailes hautes', 'Serrées et verticales : plus élancé, plus discret.', plein(W_HAUTES, CORPS)],
+  ['04', 'Ailes basses', 'Elles enveloppent au lieu de s’ouvrir.', plein(W_BASSES, CORPS)],
+  ['05', 'Au trait', 'Tout en contour. Élégant, mais fragile en petit.', trait(W_LOBES, CORPS)],
+  ['06', 'Dans l’anneau', 'Le cercle tient l’ensemble et fait une belle icône.', plein(W_LOBES, CORPS, 21.5, 7.2, anneau, 0.76)],
+  ['07', 'De profil', 'Une seule silhouette, tournée. Plus intime.', svg(`<g fill="${A}"><path d="${W_LOBES}"/><circle cx="58" cy="21" r="7"/><path d="${PROFIL}"/></g>`)],
+  ['08', 'Le buste', 'On s’arrête aux hanches. Se lit très bien en petit.', plein(W_LOBES, BUSTE, 21.5, 7.2, '', 1.15)],
+  ['09', 'Le V', 'Deux ailes, rien d’autre. Le plus dépouillé.', plein(W_V, CORPS_FIN)],
+  ['10', 'Le losange', 'Reprend le losange d’avant, avec la silhouette dedans.', plein(W_V, CORPS_FIN, 21.5, 6.4, losange, 0.62)],
+  ['11', 'Élancée', 'Un corps plus fin, des ailes larges.', plein(W_LOBES, CORPS_FIN)],
+  ['12', 'Une aile', 'Asymétrique. Se remarque, ne se confond pas.', svg(`<g fill="${A}"><path d="${W_LOBES}"/>${tete(21.5, 7.2)}${deux(CORPS)}</g>`)],
+  ['13', 'Sous l’arche', 'La silhouette dans une porte. Un clin d’œil à l’alcôve.', plein(W_HAUTES, CORPS, 21.5, 6.6, arche, 0.7)],
+  ['14', 'Art déco', 'Plumes en lignes droites, années trente.', plein(W_DECO, CORPS_FIN)],
+  ['15', 'L’envol', 'Les ailes partent en arrière, comme en mouvement.', plein(W_ARC, CORPS)],
+];
+
+function tuile([n, nom, note, s]) {
+  return `
+  <div class="l">
+    <span class="l__num">${n}</span>
+    <div class="l__grand">${s.replace('<svg', '<svg width="132" height="132"')}</div>
+    <div class="l__petits">
+      ${s.replace('<svg', '<svg width="56" height="56"')}
+      ${s.replace('<svg', '<svg width="34" height="34"')}
+      ${s.replace('<svg', '<svg width="22" height="22"')}
+    </div>
+    <span class="l__nom">${nom}</span>
+    <span class="l__note">${note}</span>
+  </div>`;
+}
+document.getElementById('grille10').innerHTML = LOGOS10.map(tuile).join('');
+document.getElementById('grille9').innerHTML = LOGOS9.map(tuile).join('');
+document.getElementById('grille8').innerHTML = LOGOS8.map(tuile).join('');
+document.getElementById('grille7').innerHTML = LOGOS7.map(tuile).join('');
+document.getElementById('grille6').innerHTML = LOGOS6.map(tuile).join('');
+document.getElementById('grille5').innerHTML = LOGOS5.map(tuile).join('');
+document.getElementById('grille4').innerHTML = LOGOS4.map(tuile).join('');
+document.getElementById('grille3').innerHTML = LOGOS3.map(tuile).join('');
+document.getElementById('grille2').innerHTML = LOGOS2.map(tuile).join('');
+document.getElementById('grille').innerHTML = LOGOS.map(([n, nom, note, s]) => `
+  <div class="l">
+    <span class="l__num">${n}</span>
+    <div class="l__grand">${s.replace('<svg', '<svg width="132" height="132"')}</div>
+    <div class="l__petits">
+      ${s.replace('<svg', '<svg width="56" height="56"')}
+      ${s.replace('<svg', '<svg width="34" height="34"')}
+      ${s.replace('<svg', '<svg width="22" height="22"')}
+    </div>
+    <span class="l__nom">${nom}</span>
+    <span class="l__note">${note}</span>
+  </div>`).join('');
+</script>

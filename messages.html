@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E0C0D">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Divin">
+<meta name="format-detection" content="telephone=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Messages · Divin</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icone-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<div class="cadre">
+
+<div class="ecran ecran--nav">
+  <div class="entete"><h1 class="titre">Messages</h1></div>
+  <div class="onglets">
+    <span class="onglet onglet--on" id="onglet-conversations">Conversations</span>
+    <span class="onglet" id="onglet-demandes">Demandes <i>3</i></span>
+  </div>
+  <div class="convs" id="liste-conversations">
+    <a class="conv" href="/conversation?c=camille">
+      <div class="vig vig--rond t2"></div>
+      <div class="conv__c">
+        <div class="conv__h"><b>Camille &amp; Théo</b><span>14:20</span></div>
+        <div class="conv__x neuf">On sera au Loft samedi soir, vous venez ?</div>
+      </div>
+      <span class="point"></span>
+    </a> 
+    <a class="conv" href="/conversation?c=adrien">
+      <div class="vig vig--rond t3"></div>
+      <div class="conv__c">
+        <div class="conv__h"><b>Adrien</b><span>hier</span></div>
+        <div class="conv__x">Merci pour l'accès aux photos.</div>
+      </div>
+      
+    </a> 
+    <a class="conv" href="/conversation?c=lise">
+      <div class="vig vig--rond t4"></div>
+      <div class="conv__c">
+        <div class="conv__h"><b>Lise &amp; Marc</b><span>lun.</span></div>
+        <div class="conv__x">Avec plaisir pour un verre la semaine prochaine.</div>
+      </div>
+      
+    </a></div>
+  <div class="convs" id="liste-demandes" style="display:none;">
+    <div class="conv"><div class="vig vig--rond t3"></div>
+      <div class="conv__c"><div class="conv__h"><b>Sofiane</b><span>2 h</span></div>
+      <div class="conv__x">Souhaite vous écrire</div></div>
+      <span class="mini mini--on" data-action="Demande acceptée ✓ — la conversation est ouverte." data-apres="Accepté ✓" style="cursor:pointer;">Accepter</span></div>
+    <div class="conv"><div class="vig vig--rond t1"></div>
+      <div class="conv__c"><div class="conv__h"><b>Julie</b><span>5 h</span></div>
+      <div class="conv__x">Souhaite vous écrire</div></div>
+      <span class="mini mini--on" data-action="Demande acceptée ✓ — la conversation est ouverte." data-apres="Accepté ✓" style="cursor:pointer;">Accepter</span></div>
+    <div class="conv"><div class="vig vig--rond t4"></div>
+      <div class="conv__c"><div class="conv__h"><b>Marco</b><span>hier</span></div>
+      <div class="conv__x">Souhaite vous écrire</div></div>
+      <span class="mini" data-action="Demande refusée." data-apres="Refusé" style="cursor:pointer;">Refuser</span></div>
+  </div>
+
+  <div class="corps" style="padding-top:14px;padding-bottom:22px;">
+    <div class="filet"></div>
+    <div style="display:flex;flex-direction:column;gap:12px;align-items:center;padding:22px;border:1px dashed #2C2729;border-radius:12px;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6E6467" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10 V7 a4 4 0 0 1 8 0 v3"/></svg>
+      <span class="txt--petit centre" style="margin:0;">Vos conversations sont conservées tant que vous ne les supprimez pas. Personne ne peut faire de capture sans que vous soyez prévenu.</span>
+    </div>
+  </div>
+</div>
+<nav class="nav">
+<a href="/decouvrir"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="11" cy="11" r="6.5"/><path d="M16 16 L21 21"/></svg><span>Découvrir</span></a>
+<a href="/lives"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/></svg><span>Lives</span></a>
+<a href="/soirees"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5 h17 M8 3 v3.5 M16 3 v3.5"/></svg><span>Soirées</span></a>
+<a href="/messages" class="on"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M20.5 12 a8.5 7.5 0 1 1 -3.6 -6.1 M20.5 12 a8.5 7.5 0 0 1 -11.6 6.9 L4 20 l1.3 -3.4"/></svg><span>Messages</span></a>
+<a href="/moi"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="8" r="4"/><path d="M5 21 a7 7 0 0 1 14 0"/></svg><span>Profil</span></a>
+</nav>
+
+</div>
+</body>
+</html>

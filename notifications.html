@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E0C0D">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Divin">
+<meta name="format-detection" content="telephone=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Notifications · Divin</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icone-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<div class="cadre">
+
+<div class="ecran ecran--nav">
+
+  <div class="entete">
+    <h1 class="titre">Notifications</h1>
+    <span class="lien-accent" data-action="Tout est marqué comme lu ✓" style="cursor:pointer;">Tout marquer comme lu</span>
+  </div>
+
+  <div class="notifs">
+
+    <div class="jour">Aujourd'hui</div>
+
+    <div class="notif notif--neuf">
+      <div class="vig vig--rond t2"></div>
+      <div class="notif__c">
+        <p><b>Camille &amp; Théo</b> demandent l'accès à vos photos.</p>
+        <time>14 h 20</time>
+        <div class="notif__actions">
+          <span class="mini mini--on" data-action="Accès aux photos accordé ✓" data-apres="Accordé ✓" style="cursor:pointer;">Accepter</span>
+          <span class="mini" data-action="Demande refusée." data-apres="Refusé" style="cursor:pointer;">Refuser</span>
+        </div>
+      </div>
+      <span class="point"></span>
+    </div>
+
+    <a class="notif notif--neuf" href="/live">
+      <div class="vig vig--rond t1"></div>
+      <div class="notif__c">
+        <p><b>Nina</b> est en direct : « On papote ».</p>
+        <time>13 h 05</time>
+      </div>
+      <span class="point"></span>
+    </a>
+
+    <a class="notif notif--neuf" href="/messages">
+      <div class="vig vig--rond t3"></div>
+      <div class="notif__c">
+        <p>Nouveau message d'<b>Adrien</b>.</p>
+        <time>11 h 40</time>
+      </div>
+      <span class="point"></span>
+    </a>
+
+    <a class="notif" href="/moi">
+      <div class="notif__ic">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9A9093" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12 s3.5 -6 10 -6 10 6 10 6 -3.5 6 -10 6 -10 -6 -10 -6 Z"></path><circle cx="12" cy="12" r="2.6"></circle></svg>
+      </div>
+      <div class="notif__c">
+        <p><b>6 personnes</b> ont vu votre profil.</p>
+        <time>9 h 12</time>
+      </div>
+    </a>
+
+    <div class="jour">Hier</div>
+
+    <a class="notif" href="/soiree">
+      <div class="notif__ic">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#C08B77" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21 s7 -6.4 7 -11 a7 7 0 1 0 -14 0 c0 4.6 7 11 7 11 Z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+      </div>
+      <div class="notif__c">
+        <p>Votre inscription à la <b>Soirée Velours</b> est validée. L'adresse exacte est disponible.</p>
+        <time>18 h 30</time>
+      </div>
+    </a>
+
+    <a class="notif" href="/verification">
+      <div class="notif__ic">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#C08B77"></circle><path d="M8 12.3 L10.7 15 L16 9.6" stroke="#17110F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </div>
+      <div class="notif__c">
+        <p>Votre profil est <b>vérifié</b>. Vous pouvez écrire, entrer en live et vous inscrire aux soirées.</p>
+        <time>10 h 02</time>
+      </div>
+    </a>
+
+    <div class="jour">Cette semaine</div>
+
+    <a class="notif" href="/club">
+      <div class="notif__ic">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9A9093" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"></rect><path d="M3.5 9.5 h17 M8 3 v3.5 M16 3 v3.5"></path></svg>
+      </div>
+      <div class="notif__c">
+        <p><b>Le Loft</b> a publié une nouvelle soirée : Nuit blanche, le 27 septembre.</p>
+        <time>lundi</time>
+      </div>
+    </a>
+
+    <a class="notif" href="/decouvrir">
+      <div class="notif__ic">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9A9093" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16 L21 21"></path></svg>
+      </div>
+      <div class="notif__c">
+        <p><b>3 nouveaux profils</b> correspondent à ce que vous cherchez, à moins de 10 km.</p>
+        <time>dimanche</time>
+      </div>
+    </a>
+  </div>
+
+  <div class="corps" style="padding-top:24px;padding-bottom:22px;">
+    <div class="filet"></div>
+
+    <div class="bloc">
+      <span class="legende">Ce que je reçois</span>
+      <div class="champ"><span style="font-size:13px;color:#C9C0C2;">Messages</span><span class="bascule"><i></i></span></div>
+      <div class="champ"><span style="font-size:13px;color:#C9C0C2;">Demandes de photos</span><span class="bascule"><i></i></span></div>
+      <div class="champ"><span style="font-size:13px;color:#C9C0C2;">Lives des profils suivis</span><span class="bascule"><i></i></span></div>
+      <div class="champ"><span style="font-size:13px;color:#C9C0C2;">Soirées près de moi</span><span class="bascule"><i></i></span></div>
+      <div class="champ"><span style="font-size:13px;color:#6E6467;">Vues de mon profil</span><span class="bascule bascule--off"><i></i></span></div>
+      <div class="champ"><span style="font-size:13px;color:#6E6467;">Suggestions de profils</span><span class="bascule bascule--off"><i></i></span></div>
+    </div>
+
+    <div class="bloc">
+      <span class="legende">Discrétion</span>
+
+      <div class="champ" style="align-items:flex-start;">
+        <span style="flex:1 1 auto;">
+          <span style="display:block;font-size:13px;color:#C9C0C2;margin-bottom:4px;">Notifications muettes</span>
+          <span style="display:block;font-size:11.5px;line-height:1.45;color:#6E6467;">L'écran verrouillé affiche seulement « Divin », jamais le nom ni le message.</span>
+        </span>
+        <span class="bascule"><i></i></span>
+      </div>
+
+      <div class="champ" style="align-items:flex-start;">
+        <span style="flex:1 1 auto;">
+          <span style="display:block;font-size:13px;color:#C9C0C2;margin-bottom:4px;">Ne rien recevoir de 8 h à 19 h</span>
+          <span style="display:block;font-size:11.5px;line-height:1.45;color:#6E6467;">Tout est mis de côté et vous arrive le soir, d'un coup.</span>
+        </span>
+        <span class="bascule"><i></i></span>
+      </div>
+
+      <div class="encart">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C08B77" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;"><rect x="4" y="10" width="16" height="10" rx="2"></rect><path d="M8 10 V7 a4 4 0 0 1 8 0 v3"></path></svg>
+        <span>L'icône et le nom sur votre téléphone peuvent être remplacés par un nom neutre de votre choix.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<nav class="nav">
+<a href="/decouvrir"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16 L21 21"></path></svg><span>Découvrir</span></a>
+<a href="/lives"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"></circle></svg><span>Lives</span></a>
+<a href="/soirees"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"></rect><path d="M3.5 9.5 h17 M8 3 v3.5 M16 3 v3.5"></path></svg><span>Soirées</span></a>
+<a href="/messages"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12 a8.5 7.5 0 1 1 -3.6 -6.1 M20.5 12 a8.5 7.5 0 0 1 -11.6 6.9 L4 20 l1.3 -3.4"></path></svg><span>Messages</span></a>
+<a href="/moi"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M5 21 a7 7 0 0 1 14 0"></path></svg><span>Profil</span></a>
+</nav>
+
+</div>
+</body>
+</html>
