@@ -867,7 +867,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---- conversation : fil + envoi ---- */
-  if (page === '/conversation') {
+  if (page === '/conversation' && !param('u')) {
     var qui = param('c') || 'camille';
     var dp = PROFILS[qui] || PROFILS.camille;
     var cNom = document.getElementById('conv-nom');
