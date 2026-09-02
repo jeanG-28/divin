@@ -17,19 +17,19 @@ var sb = (typeof supabase !== 'undefined' && supabase.createClient)
   ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
   : null;
 
-  function synchroniserProfil() {
-      if (!sb) return;
-      sb.auth.getSession().then(function (res) {
-            var session = res.data.session;
-            if (!session) return;
-            var p = lireProfil();
-            sb.from('profiles').update({
-                    pseudo: p.pseudo, age: p.age, age_elle: p.ageElle, age_lui: p.ageLui,
-                    ville: p.ville, type: p.type, genre: p.genre, description: p.description,
-                    physique: p.physique || {}, verifie: !!p.verifie
-            }).eq('id', session.user.id).then(function () {});
-      });
-  }
+function synchroniserProfil() {
+  if (!sb) return;
+  sb.auth.getSession().then(function (res) {
+    var session = res.data.session;
+    if (!session) return;
+    var p = lireProfil();
+    sb.from('profiles').update({
+      pseudo: p.pseudo, age: p.age, age_elle: p.ageElle, age_lui: p.ageLui,
+      ville: p.ville, type: p.type, genre: p.genre, description: p.description,
+      physique: p.physique || {}, verifie: !!p.verifie
+    }).eq('id', session.user.id).then(function () {});
+  });
+}
 
 /* ---------------- installation (ajout à l'écran d'accueil) ---------------- */
 
@@ -578,7 +578,7 @@ document.addEventListener('DOMContentLoaded', function () {
         toast('Photo envoyée. Contrôle en cours…');
         setTimeout(function () {
           ecrireProfil({ verifie: true });
-                        synchroniserProfil();
+          synchroniserProfil();
           if (geste) geste.innerHTML = '<div style="font-size:15px;font-weight:700;color:#8CB79A;padding:26px 10px;text-align:center;">Profil vérifié ✓<br><span style="font-size:12px;color:#9A9093;font-weight:400;">(simulé — dans la vraie application, une personne contrôle sous 24 h)</span></div>';
           btnCam.textContent = 'Continuer';
           btnCam.classList.remove('fait');
@@ -728,7 +728,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---- live paramétré + chat réel ---- */
-  if (page === '/live') {
+  if (page === '/live' && !param('room')) {
     var lv = LIVES[param('l')] || LIVES.camille;
     var lnom = document.getElementById('live-nom');
     var lsous = document.getElementById('live-sous');
@@ -985,240 +985,370 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---- decouvrir : vrais membres inscrits, en plus des profils de demo ---- */
-    if (page === '/decouvrir' && sb) {
-          sb.auth.getSession().then(function (res) {
-                  var session = res.data.session;
-                  if (!session) return;
-                  sb.from('profiles').select('*').neq('id', session.user.id).not('pseudo', 'is', null).order('created_at', { ascending: false }).then(function (r) {
-                            var liste = (r.data || []);
-                            if (!liste.length) return;
-                            var corpsEl = document.querySelector('.corps');
-                            if (!corpsEl) return;
-                            var titreSection = document.createElement('div');
-                            titreSection.className = 'legende';
-                            titreSection.style.margin = '4px 0 -4px';
-                            titreSection.textContent = 'Vrais membres';
-                            corpsEl.insertBefore(titreSection, corpsEl.firstChild);
-                            var curseur = titreSection;
-                            liste.forEach(function (p, i) {
-                                        var a = document.createElement('a');
-                                        a.className = 'carte';
-                                        a.href = '/profil?u=' + p.id;
-                                        var teinte = 't' + ((i % 4) + 1);
-                                        var bits = [];
-                                        if (p.type === 'couple' && p.age_elle && p.age_lui) bits.push(p.age_elle + ' et ' + p.age_lui + ' ans');
-                                        else if (p.age) bits.push(p.age + ' ans');
-                                        if (p.ville) bits.push(p.ville);
-                                        bits.push(p.type === 'couple' ? 'couple' : (p.genre === 'homme' ? 'homme seul' : 'femme seule'));
-                                        a.innerHTML = '<div class="vig vig--liste ' + teinte + '"></div>' +
-                                                      '<div class="carte__corps"><div class="carte__nom"><b></b></div><div class="carte__meta"></div></div>';
-                                        a.querySelector('.carte__nom b').textContent = p.pseudo || 'Membre';
-                                        a.querySelector('.carte__meta').textContent = bits.join(' · ');
-                                        corpsEl.insertBefore(a, curseur.nextSibling);
-                                        curseur = a;
-                            });
-                  });
-          });
-    }
+  if (page === '/decouvrir' && sb) {
+    sb.auth.getSession().then(function (res) {
+      var session = res.data.session;
+      if (!session) return;
+      sb.from('profiles').select('*').neq('id', session.user.id).not('pseudo', 'is', null).order('created_at', { ascending: false }).then(function (r) {
+        var liste = (r.data || []);
+        if (!liste.length) return;
+        var corpsEl = document.querySelector('.corps');
+        if (!corpsEl) return;
+        var titreSection = document.createElement('div');
+        titreSection.className = 'legende';
+        titreSection.style.margin = '4px 0 -4px';
+        titreSection.textContent = 'Vrais membres';
+        corpsEl.insertBefore(titreSection, corpsEl.firstChild);
+        var curseur = titreSection;
+        liste.forEach(function (p, i) {
+          var a = document.createElement('a');
+          a.className = 'carte';
+          a.href = '/profil?u=' + p.id;
+          var teinte = 't' + ((i % 4) + 1);
+          var bits = [];
+          if (p.type === 'couple' && p.age_elle && p.age_lui) bits.push(p.age_elle + ' et ' + p.age_lui + ' ans');
+          else if (p.age) bits.push(p.age + ' ans');
+          if (p.ville) bits.push(p.ville);
+          bits.push(p.type === 'couple' ? 'couple' : (p.genre === 'homme' ? 'homme seul' : 'femme seule'));
+          a.innerHTML = '<div class="vig vig--liste ' + teinte + '"></div>' +
+            '<div class="carte__corps"><div class="carte__nom"><b></b></div><div class="carte__meta"></div></div>';
+          a.querySelector('.carte__nom b').textContent = p.pseudo || 'Membre';
+          a.querySelector('.carte__meta').textContent = bits.join(' · ');
+          corpsEl.insertBefore(a, curseur.nextSibling);
+          curseur = a;
+        });
+      });
+    });
+  }
 
-    /* ---- profil reel (vrai membre inscrit, parametre ?u=) ---- */
-    if (page === '/profil' && param('u') && sb) {
-          var uReel = param('u');
-          sb.from('profiles').select('*').eq('id', uReel).single().then(function (r) {
-                  if (!r.data) return;
-                  var p = r.data;
-                  var nomAffiche = p.pseudo || 'Membre';
-                  var titreP = document.getElementById('profil-nom');
-                  if (titreP) {
-                            titreP.childNodes[0].nodeValue = nomAffiche + ' ';
-                            var svgVerif = titreP.querySelector('svg');
-                            if (svgVerif) svgVerif.style.display = p.verifie ? '' : 'none';
-                  }
-                  document.title = nomAffiche + ' · Divin';
-                  var metaP = document.getElementById('profil-meta');
-                  if (metaP) {
-                            var bits = [];
-                            if (p.type === 'couple' && p.age_elle && p.age_lui) bits.push(p.age_elle + ' et ' + p.age_lui + ' ans');
-                            else if (p.age) bits.push(p.age + ' ans');
-                            if (p.ville) bits.push(p.ville);
-                            bits.push(p.type === 'couple' ? 'couple' : (p.genre === 'homme' ? 'homme seul' : 'femme seule'));
-                            metaP.textContent = bits.join(' · ');
-                  }
-                  var presP = document.getElementById('profil-presentation');
-                  if (presP) presP.textContent = p.description || 'Ce membre n a pas encore ajoute de description.';
-                  var bandoP = document.querySelector('.bandeau');
-                  if (bandoP) bandoP.className = bandoP.className.replace(/t[1-4]/, 't' + ((uReel.charCodeAt(0) % 4) + 1));
-                  var lienEcrireP = document.querySelector('a[href^="/conversation"]');
-                  if (lienEcrireP) lienEcrireP.setAttribute('href', '/conversation?u=' + uReel);
-                  var btnLikeP = document.getElementById('btn-like');
-                  var coeurLikeP = document.getElementById('coeur-like');
-                  var peindreLikeP = function (on) {
-                            if (!coeurLikeP) return;
-                            coeurLikeP.style.fill = on ? '#C08B77' : 'none';
-                            coeurLikeP.style.stroke = on ? '#C08B77' : '#EFE9EA';
-                  };
-                  if (btnLikeP) {
-                            peindreLikeP(lireEtat('like.' + uReel, false));
-                            btnLikeP.addEventListener('click', function (ev) {
-                                        ev.preventDefault();
-                                        var on = !lireEtat('like.' + uReel, false);
-                                        ecrireEtat('like.' + uReel, on);
-                                        peindreLikeP(on);
-                                        toast(on ? 'Vous aimez le profil de ' + nomAffiche : 'Like retire.');
-                            });
-                  }
-                  var lienSigP = document.getElementById('lien-signaler');
-                  var blocSigP = document.getElementById('bloc-signaler');
-                  var motifSigP = document.getElementById('motif-signalement');
-                  var btnSigP = document.getElementById('btn-signaler');
-                  var sigFaitP = function () {
-                            if (lienSigP) { lienSigP.textContent = 'Signalement envoye'; lienSigP.style.textDecoration = 'none'; lienSigP.style.opacity = '.7'; }
-                            if (blocSigP) blocSigP.style.display = 'none';
-                  };
-                  if (lireEtat('signale.' + uReel, false)) sigFaitP();
-                  if (lienSigP) lienSigP.addEventListener('click', function (ev) {
-                            ev.preventDefault();
-                            if (lireEtat('signale.' + uReel, false)) { toast('Ce profil est deja signale.'); return; }
-                            if (blocSigP) {
-                                        var ouvert = blocSigP.style.display !== 'none';
-                                        blocSigP.style.display = ouvert ? 'none' : 'flex';
-                                        if (!ouvert && motifSigP) motifSigP.focus();
-                            }
-                  });
-                  if (btnSigP) btnSigP.addEventListener('click', function (ev) {
-                            ev.preventDefault();
-                            if (!motifSigP || !motifSigP.value.trim()) { toast('Expliquez la raison du signalement.'); if (motifSigP) motifSigP.focus(); return; }
-                            ecrireEtat('signale.' + uReel, true);
-                            sigFaitP();
-                            toast('Signalement transmis.');
-                  });
-                  var physP = p.physique || {};
-                  var colonnesP = document.querySelector('.phys');
-                  var lignesDe = function (cote) {
-                            var lignes = [];
-                            if (cote.taille) lignes.push(['Taille', cote.taille]);
-                            if (cote.poids) lignes.push(['Poids', cote.poids]);
-                            if (cote.silhouette) lignes.push(['Silhouette', cote.silhouette]);
-                            if (cote.details) { for (var k in cote.details) lignes.push([k, cote.details[k]]); }
-                            return lignes;
-                  };
-                  var remplirColP = function (col, titreCol, cote) {
-                            col.innerHTML = '<h4></h4>';
-                            col.querySelector('h4').textContent = titreCol;
-                            lignesDe(cote).forEach(function (paire) {
-                                        var lg = document.createElement('div');
-                                        lg.className = 'phys__l';
-                                        lg.innerHTML = '<span></span><b></b>';
-                                        lg.querySelector('span').textContent = paire[0];
-                                        lg.querySelector('b').textContent = paire[1];
-                                        col.appendChild(lg);
-                            });
-                  };
-                  if (colonnesP && colonnesP.children[0]) {
-                            if (p.type === 'couple') {
-                                        remplirColP(colonnesP.children[0], 'Elle' + (p.age_elle ? ', ' + p.age_elle + ' ans' : ''), physP.elle || {});
-                                        if (colonnesP.children[1]) remplirColP(colonnesP.children[1], 'Lui' + (p.age_lui ? ', ' + p.age_lui + ' ans' : ''), physP.lui || {});
-                            } else {
-                                        remplirColP(colonnesP.children[0], nomAffiche + (p.age ? ', ' + p.age + ' ans' : ''), physP.solo || {});
-                                        if (colonnesP.children[1]) {
-                                                      colonnesP.style.gridTemplateColumns = 'minmax(0,1fr)';
-                                                      colonnesP.children[1].style.display = 'none';
-                                                      colonnesP.children[0].style.borderRight = '0';
-                                                      colonnesP.children[0].style.paddingRight = '0';
-                                        }
-                            }
-                  }
-          });
-    }
+  /* ---- profil reel (vrai membre inscrit, parametre ?u=) ---- */
+  if (page === '/profil' && param('u') && sb) {
+    var uReel = param('u');
+    sb.from('profiles').select('*').eq('id', uReel).single().then(function (r) {
+      if (!r.data) return;
+      var p = r.data;
+      var nomAffiche = p.pseudo || 'Membre';
+      var titreP = document.getElementById('profil-nom');
+      if (titreP) {
+        titreP.childNodes[0].nodeValue = nomAffiche + ' ';
+        var svgVerif = titreP.querySelector('svg');
+        if (svgVerif) svgVerif.style.display = p.verifie ? '' : 'none';
+      }
+      document.title = nomAffiche + ' · Divin';
+      var metaP = document.getElementById('profil-meta');
+      if (metaP) {
+        var bits = [];
+        if (p.type === 'couple' && p.age_elle && p.age_lui) bits.push(p.age_elle + ' et ' + p.age_lui + ' ans');
+        else if (p.age) bits.push(p.age + ' ans');
+        if (p.ville) bits.push(p.ville);
+        bits.push(p.type === 'couple' ? 'couple' : (p.genre === 'homme' ? 'homme seul' : 'femme seule'));
+        metaP.textContent = bits.join(' · ');
+      }
+      var presP = document.getElementById('profil-presentation');
+      if (presP) presP.textContent = p.description || 'Ce membre n’a pas encore ajouté de description.';
+      var bandoP = document.querySelector('.bandeau');
+      if (bandoP) bandoP.className = bandoP.className.replace(/t[1-4]/, 't' + ((uReel.charCodeAt(0) % 4) + 1));
+      var lienEcrireP = document.querySelector('a[href^="/conversation"]');
+      if (lienEcrireP) lienEcrireP.setAttribute('href', '/conversation?u=' + uReel);
+      var btnLikeP = document.getElementById('btn-like');
+      var coeurLikeP = document.getElementById('coeur-like');
+      var peindreLikeP = function (on) {
+        if (!coeurLikeP) return;
+        coeurLikeP.style.fill = on ? '#C08B77' : 'none';
+        coeurLikeP.style.stroke = on ? '#C08B77' : '#EFE9EA';
+      };
+      if (btnLikeP) {
+        peindreLikeP(lireEtat('like.' + uReel, false));
+        btnLikeP.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          var on = !lireEtat('like.' + uReel, false);
+          ecrireEtat('like.' + uReel, on);
+          peindreLikeP(on);
+          toast(on ? 'Vous aimez le profil de ' + nomAffiche + ' ✓' : 'Like retiré.');
+        });
+      }
+      var lienSigP = document.getElementById('lien-signaler');
+      var blocSigP = document.getElementById('bloc-signaler');
+      var motifSigP = document.getElementById('motif-signalement');
+      var btnSigP = document.getElementById('btn-signaler');
+      var sigFaitP = function () {
+        if (lienSigP) { lienSigP.textContent = 'Signalement envoyé ✓'; lienSigP.style.textDecoration = 'none'; lienSigP.style.opacity = '.7'; }
+        if (blocSigP) blocSigP.style.display = 'none';
+      };
+      if (lireEtat('signale.' + uReel, false)) sigFaitP();
+      if (lienSigP) lienSigP.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        if (lireEtat('signale.' + uReel, false)) { toast('Ce profil est déjà signalé. La modération l’examine.'); return; }
+        if (blocSigP) {
+          var ouvert = blocSigP.style.display !== 'none';
+          blocSigP.style.display = ouvert ? 'none' : 'flex';
+          if (!ouvert && motifSigP) motifSigP.focus();
+        }
+      });
+      if (btnSigP) btnSigP.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        if (!motifSigP || !motifSigP.value.trim()) { toast('Expliquez en quelques mots la raison du signalement.'); if (motifSigP) motifSigP.focus(); return; }
+        ecrireEtat('signale.' + uReel, true);
+        sigFaitP();
+        toast('Signalement transmis à la modération avec votre explication.');
+      });
+      var physP = p.physique || {};
+      var colonnesP = document.querySelector('.phys');
+      var lignesDe = function (cote) {
+        var lignes = [];
+        if (cote.taille) lignes.push(['Taille', cote.taille]);
+        if (cote.poids) lignes.push(['Poids', cote.poids]);
+        if (cote.silhouette) lignes.push(['Silhouette', cote.silhouette]);
+        if (cote.details) { for (var k in cote.details) lignes.push([k, cote.details[k]]); }
+        return lignes;
+      };
+      var remplirColP = function (col, titreCol, cote) {
+        col.innerHTML = '<h4></h4>';
+        col.querySelector('h4').textContent = titreCol;
+        lignesDe(cote).forEach(function (paire) {
+          var lg = document.createElement('div');
+          lg.className = 'phys__l';
+          lg.innerHTML = '<span></span><b></b>';
+          lg.querySelector('span').textContent = paire[0];
+          lg.querySelector('b').textContent = paire[1];
+          col.appendChild(lg);
+        });
+      };
+      if (colonnesP && colonnesP.children[0]) {
+        if (p.type === 'couple') {
+          remplirColP(colonnesP.children[0], 'Elle' + (p.age_elle ? ', ' + p.age_elle + ' ans' : ''), physP.elle || {});
+          if (colonnesP.children[1]) remplirColP(colonnesP.children[1], 'Lui' + (p.age_lui ? ', ' + p.age_lui + ' ans' : ''), physP.lui || {});
+        } else {
+          remplirColP(colonnesP.children[0], nomAffiche + (p.age ? ', ' + p.age + ' ans' : ''), physP.solo || {});
+          if (colonnesP.children[1]) {
+            colonnesP.style.gridTemplateColumns = 'minmax(0,1fr)';
+            colonnesP.children[1].style.display = 'none';
+            colonnesP.children[0].style.borderRight = '0';
+            colonnesP.children[0].style.paddingRight = '0';
+          }
+        }
+      }
+    });
+  }
 
-    /* ---- conversation reelle (vrai membre, parametre ?u=) ---- */
-    if (page === '/conversation' && param('u') && sb) {
-          var uAutre = param('u');
-          var cNomR = document.getElementById('conv-nom');
-          var filR = document.getElementById('conv-fil');
-          var champR = document.getElementById('conv-champ');
-          var envR = document.getElementById('conv-envoyer');
-          var moiIdR = null;
-          var chargerMessagesReels = function () {
-                  if (!filR || !moiIdR) return;
-                  sb.from('messages').select('*')
-                    .or('and(sender_id.eq.' + moiIdR + ',receiver_id.eq.' + uAutre + '),and(sender_id.eq.' + uAutre + ',receiver_id.eq.' + moiIdR + ')')
-                    .order('created_at', { ascending: true })
-                    .then(function (r) {
-                                if (!r.data) return;
-                                filR.innerHTML = '';
-                                r.data.forEach(function (m) {
-                                              var moi = m.sender_id === moiIdR;
-                                              var b = document.createElement('div');
-                                              b.style.cssText = 'max-width:78%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.45;' +
-                                                              (moi ? 'align-self:flex-end;background:#C08B77;color:#1A1214;border-bottom-right-radius:4px;'
-                                                                                  : 'align-self:flex-start;background:#221B1D;color:#EFE9EA;border-bottom-left-radius:4px;');
-                                              b.textContent = m.contenu;
-                                              filR.appendChild(b);
-                                });
-                                filR.scrollTop = filR.scrollHeight;
-                    });
-          };
-          var envoyerReel = function () {
-                  if (!champR || !champR.value.trim() || !moiIdR) return;
-                  var texte = champR.value.trim();
-                  champR.value = '';
-                  sb.from('messages').insert({ sender_id: moiIdR, receiver_id: uAutre, contenu: texte }).then(function () { chargerMessagesReels(); });
-          };
-          sb.auth.getSession().then(function (res) {
-                  var session = res.data.session;
-                  if (!session) return;
-                  moiIdR = session.user.id;
-                  sb.from('profiles').select('pseudo').eq('id', uAutre).single().then(function (r) {
-                            if (cNomR) cNomR.textContent = (r.data && r.data.pseudo) ? r.data.pseudo : 'Membre';
-                  });
-                  chargerMessagesReels();
-                  setInterval(chargerMessagesReels, 4000);
+  /* ---- conversation reelle (vrai membre, parametre ?u=) ---- */
+  if (page === '/conversation' && param('u') && sb) {
+    var uAutre = param('u');
+    var cNomR = document.getElementById('conv-nom');
+    var filR = document.getElementById('conv-fil');
+    var champR = document.getElementById('conv-champ');
+    var envR = document.getElementById('conv-envoyer');
+    var moiIdR = null;
+    var chargerMessagesReels = function () {
+      if (!filR || !moiIdR) return;
+      sb.from('messages').select('*')
+        .or('and(sender_id.eq.' + moiIdR + ',receiver_id.eq.' + uAutre + '),and(sender_id.eq.' + uAutre + ',receiver_id.eq.' + moiIdR + ')')
+        .order('created_at', { ascending: true })
+        .then(function (r) {
+          if (!r.data) return;
+          filR.innerHTML = '';
+          r.data.forEach(function (m) {
+            var moi = m.sender_id === moiIdR;
+            var b = document.createElement('div');
+            b.style.cssText = 'max-width:78%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.45;' +
+              (moi ? 'align-self:flex-end;background:#C08B77;color:#1A1214;border-bottom-right-radius:4px;'
+                   : 'align-self:flex-start;background:#221B1D;color:#EFE9EA;border-bottom-left-radius:4px;');
+            b.textContent = m.contenu;
+            filR.appendChild(b);
           });
-          if (envR) envR.addEventListener('click', function (ev) { ev.preventDefault(); envoyerReel(); });
-          if (champR) champR.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); envoyerReel(); } });
-    }
+          filR.scrollTop = filR.scrollHeight;
+        });
+    };
+    var envoyerReel = function () {
+      if (!champR || !champR.value.trim() || !moiIdR) return;
+      var texte = champR.value.trim();
+      champR.value = '';
+      sb.from('messages').insert({ sender_id: moiIdR, receiver_id: uAutre, contenu: texte }).then(function () { chargerMessagesReels(); });
+    };
+    sb.auth.getSession().then(function (res) {
+      var session = res.data.session;
+      if (!session) return;
+      moiIdR = session.user.id;
+      sb.from('profiles').select('pseudo').eq('id', uAutre).single().then(function (r) {
+        if (cNomR) cNomR.textContent = (r.data && r.data.pseudo) ? r.data.pseudo : 'Membre';
+      });
+      chargerMessagesReels();
+      setInterval(chargerMessagesReels, 4000);
+    });
+    if (envR) envR.addEventListener('click', function (ev) { ev.preventDefault(); envoyerReel(); });
+    if (champR) champR.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); envoyerReel(); } });
+  }
 
-    /* ---- messages : conversations reelles en plus des demos ---- */
-    if (page === '/messages' && sb) {
-          sb.auth.getSession().then(function (res) {
-                  var session = res.data.session;
-                  if (!session) return;
-                  var moiIdM = session.user.id;
-                  sb.from('messages').select('*')
-                    .or('sender_id.eq.' + moiIdM + ',receiver_id.eq.' + moiIdM)
-                    .order('created_at', { ascending: false })
-                    .then(function (r) {
-                                var lignesMsg = r.data || [];
-                                if (!lignesMsg.length) return;
-                                var vus = {};
-                                var partenaires = [];
-                                lignesMsg.forEach(function (m) {
-                                              var autre = m.sender_id === moiIdM ? m.receiver_id : m.sender_id;
-                                              if (!vus[autre]) { vus[autre] = m; partenaires.push(autre); }
-                                });
-                                sb.from('profiles').select('id, pseudo').in('id', partenaires).then(function (rp) {
-                                              var noms = {};
-                                              (rp.data || []).forEach(function (p) { noms[p.id] = p.pseudo || 'Membre'; });
-                                              var conteneurM = document.getElementById('liste-conversations');
-                                              if (!conteneurM) return;
-                                              partenaires.forEach(function (id, i) {
-                                                              var m = vus[id];
-                                                              var a = document.createElement('a');
-                                                              a.className = 'conv';
-                                                              a.href = '/conversation?u=' + id;
-                                                              var teinte = 't' + ((i % 4) + 1);
-                                                              var heure = new Date(m.created_at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-                                                              a.innerHTML = '<div class="vig vig--rond ' + teinte + '"></div>' +
-                                                                                '<div class="conv__c"><div class="conv__h"><b></b><span></span></div><div class="conv__x"></div></div>';
-                                                              a.querySelector('b').textContent = noms[id] || 'Membre';
-                                                              a.querySelector('span').textContent = heure;
-                                                              a.querySelector('.conv__x').textContent = m.contenu;
-                                                              conteneurM.insertBefore(a, conteneurM.firstChild);
-                                              });
-                                });
-                    });
+  /* ---- messages : conversations reelles en plus des demos ---- */
+  if (page === '/messages' && sb) {
+    sb.auth.getSession().then(function (res) {
+      var session = res.data.session;
+      if (!session) return;
+      var moiIdM = session.user.id;
+      sb.from('messages').select('*')
+        .or('sender_id.eq.' + moiIdM + ',receiver_id.eq.' + moiIdM)
+        .order('created_at', { ascending: false })
+        .then(function (r) {
+          var lignesMsg = r.data || [];
+          if (!lignesMsg.length) return;
+          var vus = {};
+          var partenaires = [];
+          lignesMsg.forEach(function (m) {
+            var autre = m.sender_id === moiIdM ? m.receiver_id : m.sender_id;
+            if (!vus[autre]) { vus[autre] = m; partenaires.push(autre); }
           });
+          sb.from('profiles').select('id, pseudo').in('id', partenaires).then(function (rp) {
+            var noms = {};
+            (rp.data || []).forEach(function (p) { noms[p.id] = p.pseudo || 'Membre'; });
+            var conteneurM = document.getElementById('liste-conversations');
+            if (!conteneurM) return;
+            partenaires.forEach(function (id, i) {
+              var m = vus[id];
+              var a = document.createElement('a');
+              a.className = 'conv';
+              a.href = '/conversation?u=' + id;
+              var teinte = 't' + ((i % 4) + 1);
+              var heure = new Date(m.created_at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+              a.innerHTML = '<div class="vig vig--rond ' + teinte + '"></div>' +
+                '<div class="conv__c"><div class="conv__h"><b></b><span></span></div><div class="conv__x"></div></div>';
+              a.querySelector('b').textContent = noms[id] || 'Membre';
+              a.querySelector('span').textContent = heure;
+              a.querySelector('.conv__x').textContent = m.contenu;
+              conteneurM.insertBefore(a, conteneurM.firstChild);
+            });
+          });
+        });
+    });
+  }
+
+  /* ---- lives : demarrer un vrai live + lister les vrais lives en cours ---- */
+  if (page === '/lives') {
+    var btnDemarrer = document.getElementById('btn-demarrer-live');
+    if (btnDemarrer && sb) {
+      btnDemarrer.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        sb.auth.getSession().then(function (res) {
+          var session = res.data.session;
+          if (!session) { toast('Connectez-vous pour demarrer un live.'); return; }
+          location.href = '/live?room=' + session.user.id + '&host=1';
+        });
+      });
     }
-  
+    if (sb) {
+      fetch('/api/livekit-rooms').then(function (r) { return r.json(); }).then(function (data) {
+        var rooms = data.rooms || [];
+        if (!rooms.length) return;
+        var ids = rooms.map(function (r) { return r.nom; });
+        sb.from('profiles').select('id, pseudo').in('id', ids).then(function (rp) {
+          var noms = {};
+          (rp.data || []).forEach(function (p) { noms[p.id] = p.pseudo || 'Membre'; });
+          var grille = document.querySelector('.grille-lives');
+          if (!grille) return;
+          var titreL = document.createElement('div');
+          titreL.className = 'legende';
+          titreL.style.cssText = 'grid-column:1 / -1;margin:0 0 -6px;';
+          titreL.textContent = 'Vrais lives en cours';
+          grille.parentElement.insertBefore(titreL, grille);
+          rooms.forEach(function (r, i) {
+            var a = document.createElement('a');
+            a.className = 'live-case';
+            a.href = '/live?room=' + r.nom;
+            var teinte = 't' + ((i % 4) + 1);
+            a.innerHTML = '<div class="vig vig--live ' + teinte + '"><span class="direct"><i></i>LIVE</span><span class="spectateurs"></span></div><b></b><span>En direct</span>';
+            a.querySelector('.spectateurs').textContent = r.spectateurs;
+            a.querySelector('b').textContent = noms[r.nom] || 'Membre';
+            grille.insertBefore(a, grille.firstChild);
+          });
+        });
+      }).catch(function () {});
+    }
+  }
+
+  /* ---- live reel : diffusion et tchat en direct via LiveKit, parametre ?room= ---- */
+  if (page === '/live' && param('room') && sb) {
+    var roomName = param('room');
+    var estHote = param('host') === '1';
+    var videoEl = document.querySelector('.plateau video');
+    var vuesEl = document.getElementById('live-vues');
+    var nomEl = document.getElementById('live-nom');
+    var sousEl = document.getElementById('live-sous');
+    var tchatEl = document.getElementById('tchat');
+    var champEl = document.getElementById('tchat-champ');
+    var envoyerEl = document.getElementById('tchat-envoyer');
+    if (tchatEl) tchatEl.innerHTML = '';
+    var lkRoom = null;
+    var monNom = 'Membre';
+
+    var ajouterMessageLive = function (nomAuteur, texte, hote) {
+      if (!tchatEl) return;
+      var d = document.createElement('div');
+      d.innerHTML = '<b' + (hote ? ' class="hote"' : '') + '></b><span></span>';
+      d.querySelector('b').textContent = nomAuteur;
+      d.querySelector('span').textContent = texte;
+      tchatEl.appendChild(d);
+      tchatEl.scrollTop = tchatEl.scrollHeight;
+    };
+
+    var majSpectateurs = function () {
+      if (vuesEl && lkRoom) vuesEl.textContent = String(lkRoom.numParticipants + 1);
+    };
+
+    sb.auth.getSession().then(function (res) {
+      var session = res.data.session;
+      if (!session) { toast('Connectez-vous pour rejoindre ce live.'); return; }
+      var moiId = session.user.id;
+
+      var demarrer = function (pseudo) {
+        monNom = pseudo || 'Membre';
+        if (nomEl) nomEl.childNodes[0].nodeValue = (estHote ? monNom : 'Live') + ' ';
+        if (sousEl) sousEl.textContent = estHote ? 'Vous etes en direct' : 'En direct';
+
+        var url = '/api/livekit-token?room=' + encodeURIComponent(roomName) + '&identity=' + encodeURIComponent(moiId) + '&nom=' + encodeURIComponent(monNom) + (estHote ? '&publier=1' : '');
+        fetch(url).then(function (r) { return r.json(); }).then(function (data) {
+          if (!data.token) { toast('Connexion au live impossible.'); return; }
+          lkRoom = new LivekitClient.Room();
+
+          lkRoom.on(LivekitClient.RoomEvent.TrackSubscribed, function (track) {
+            if (track.kind === 'video' && videoEl) track.attach(videoEl);
+          });
+          lkRoom.on(LivekitClient.RoomEvent.ParticipantConnected, majSpectateurs);
+          lkRoom.on(LivekitClient.RoomEvent.ParticipantDisconnected, majSpectateurs);
+          lkRoom.on(LivekitClient.RoomEvent.DataReceived, function (payload) {
+            try {
+              var msg = JSON.parse(new TextDecoder().decode(payload));
+              ajouterMessageLive(msg.nom || 'Membre', msg.texte || '', !!msg.hote);
+            } catch (e) {}
+          });
+
+          lkRoom.connect(data.url, data.token).then(function () {
+            majSpectateurs();
+            if (estHote) {
+              lkRoom.localParticipant.setCameraEnabled(true).catch(function () { toast('Impossible d accede a la camera.'); });
+              lkRoom.localParticipant.setMicrophoneEnabled(true).catch(function () {});
+            }
+          }).catch(function () {
+            toast('Connexion au live impossible.');
+          });
+        });
+      };
+
+      sb.from('profiles').select('pseudo').eq('id', moiId).single().then(function (r) {
+        demarrer(r.data ? r.data.pseudo : null);
+      });
+    });
+
+    var envoyerMsgLive = function () {
+      if (!champEl || !champEl.value.trim() || !lkRoom) return;
+      var texte = champEl.value.trim();
+      champEl.value = '';
+      var msgPayload = { nom: monNom, texte: texte, hote: estHote };
+      var octets = new TextEncoder().encode(JSON.stringify(msgPayload));
+      lkRoom.localParticipant.publishData(octets, { reliable: true });
+      ajouterMessageLive(monNom, texte, estHote);
+    };
+    if (envoyerEl) envoyerEl.addEventListener('click', function (ev) { ev.preventDefault(); envoyerMsgLive(); });
+    if (champEl) champEl.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); envoyerMsgLive(); } });
+
+    window.addEventListener('beforeunload', function () { if (lkRoom) lkRoom.disconnect(); });
+  }
 });
