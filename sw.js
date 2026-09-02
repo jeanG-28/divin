@@ -5,7 +5,6 @@ var CACHE = 'divin-v1';
 
 var COQUILLE = [
   '/',
-  '/index.html',
   '/styles.css',
   '/app.js',
   '/manifest.webmanifest',
@@ -15,23 +14,22 @@ var COQUILLE = [
   '/icone.png',
   '/badge.png',
   '/badge-petit.png',
-  '/decouvrir.html',
-  '/inscription.html',
-  '/messages.html',
-  '/conversation.html',
-  '/lives.html',
-  '/live.html',
-  '/soirees.html',
-  '/soiree.html',
-  '/club.html',
-  '/logos.html',
-  '/physique.html',
-  '/disponibilites.html',
-  '/notifications.html',
-  '/moi.html',
-  '/profil.html',
-  '/verification.html',
-  '/404.html'
+  '/decouvrir',
+  '/inscription',
+  '/messages',
+  '/conversation',
+  '/lives',
+  '/live',
+  '/soirees',
+  '/soiree',
+  '/club',
+  '/logos',
+  '/physique',
+  '/disponibilites',
+  '/notifications',
+  '/moi',
+  '/profil',
+  '/verification'
 ];
 
 self.addEventListener('install', function (evenement) {
@@ -72,7 +70,7 @@ self.addEventListener('fetch', function (evenement) {
           return reponseReseau;
         }).catch(function () {
           // hors-ligne et rien en cache pour une navigation : on retombe sur l'accueil
-          if (requete.mode === 'navigate') return cache.match('/index.html');
+          if (requete.mode === 'navigate') return cache.match('/');
         });
         return reponseCache || recuperation;
       });

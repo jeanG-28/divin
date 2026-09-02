@@ -9,6 +9,68 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+/* ---------------- supabase (comptes reels, synchronises entre appareils) ---------------- */
+
+var SUPABASE_URL = 'https://tsbllhsphusqnubvxyug.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_3xQeMvR3Zw2u2VNFDpTzDw_7fE6jYHz';
+var sb = (typeof supabase !== 'undefined' && supabase.createClient)
+  ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+  : null;
+
+/* ---------------- installation (ajout à l'écran d'accueil) ---------------- */
+
+var invitePrompt = null;
+
+function enModeInstalle() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+function afficherBanniereInstallation(contenu) {
+  if (enModeInstalle() || localStorage.getItem('divin.installMasque') === '1') return;
+  if (document.getElementById('divin-installer')) return;
+
+  var decale = document.querySelector('.nav') ? 'calc(var(--nav-h, 62px) + 14px + env(safe-area-inset-bottom,0px))' : 'calc(14px + env(safe-area-inset-bottom,0px))';
+  var b = document.createElement('div');
+  b.id = 'divin-installer';
+  b.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);width:min(calc(100% - 28px), 400px);bottom:' + decale + ';z-index:98;display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:12px;background:#1C1517;border:1px solid #2C2729;box-shadow:0 10px 30px rgba(0,0,0,.5);';
+  b.innerHTML =
+    '<img src="/icone-180.png" width="34" height="34" alt="" style="border-radius:8px;flex:0 0 auto;">' +
+    '<div style="flex:1 1 auto;font-size:12.5px;line-height:1.4;color:#EFE9EA;">' + contenu.texte + '</div>' +
+    (contenu.bouton ? '<button id="divin-installer-go" style="flex:0 0 auto;min-height:38px;padding:0 14px;border-radius:8px;background:#C08B77;color:#1A1214;font-size:13px;font-weight:700;">' + contenu.bouton + '</button>' : '') +
+    '<button id="divin-installer-fermer" aria-label="Fermer" style="flex:0 0 auto;width:28px;height:28px;color:#9A9093;font-size:16px;">×</button>';
+  document.body.appendChild(b);
+
+  document.getElementById('divin-installer-fermer').addEventListener('click', function () {
+    localStorage.setItem('divin.installMasque', '1');
+    b.remove();
+  });
+
+  var goBtn = document.getElementById('divin-installer-go');
+  if (goBtn) {
+    goBtn.addEventListener('click', function () {
+      if (!invitePrompt) return;
+      invitePrompt.prompt();
+      invitePrompt.userChoice.finally(function () {
+        invitePrompt = null;
+        b.remove();
+      });
+    });
+  }
+}
+
+window.addEventListener('beforeinstallprompt', function (e) {
+  e.preventDefault();
+  invitePrompt = e;
+  afficherBanniereInstallation({ texte: 'Installez Divin sur votre écran d\'accueil pour un accès plus rapide.', bouton: 'Installer' });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  var estIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  if (estIOS && !invitePrompt) {
+    afficherBanniereInstallation({ texte: 'Pour installer Divin : appuyez sur Partager, puis « Sur l\'écran d\'accueil ».', bouton: null });
+  }
+});
+
 /* ---------------- état ---------------- */
 
 function lireProfil() {
@@ -283,27 +345,80 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('btn-continuer').addEventListener('click', function (ev) {
       ev.preventDefault();
+      var email = (document.getElementById('email').value || '').trim();
+      var motDePasse = document.getElementById('mot-de-passe').value || '';
       var pseudo = (document.getElementById('pseudo').value || '').trim();
       var ville = (document.getElementById('ville').value || '').trim();
       var type = (document.querySelector('[data-choix].actif') || { getAttribute: function () { return 'solo'; } }).getAttribute('data-choix');
       var genre = (document.querySelector('#bloc-genre .pastille--on') || { textContent: 'Une femme' }).textContent.trim();
+      if (!email || email.indexOf('@') === -1) { toast('Indiquez une adresse email valide.'); return; }
+      if (motDePasse.length < 6) { toast('Le mot de passe doit faire au moins 6 caractères.'); return; }
       if (!pseudo) { toast('Choisissez un pseudo pour continuer.'); return; }
       var lireAge = function (id) { return parseInt((document.getElementById(id).value || '').replace(/\D/g, ''), 10); };
+      var donnees;
       if (type === 'couple') {
         var aE = lireAge('age-elle'), aL = lireAge('age-lui');
         if (!aE || !aL || isNaN(aE) || isNaN(aL)) { toast('Indiquez l’âge de chacun de vous deux.'); return; }
         if (aE < 18 || aL < 18) { toast('Divin est réservé aux adultes : 18 ans minimum pour chacun.'); return; }
-        ecrireProfil({ pseudo: pseudo, age: Math.min(aE, aL), ageElle: aE, ageLui: aL,
-          ville: ville || 'Chartres', type: 'couple', genre: 'couple' });
+        donnees = { pseudo: pseudo, age: Math.min(aE, aL), ageElle: aE, ageLui: aL, ville: ville || 'Chartres', type: 'couple', genre: 'couple' };
       } else {
         var age = lireAge('age');
         if (!age || isNaN(age)) { toast('Indiquez votre âge.'); return; }
         if (age < 18) { toast('Divin est réservé aux adultes : 18 ans minimum.'); return; }
-        ecrireProfil({ pseudo: pseudo, age: age, ageElle: null, ageLui: null,
-          ville: ville || 'Chartres', type: 'solo',
-          genre: (genre === 'Un homme' ? 'homme' : 'femme') });
+        donnees = { pseudo: pseudo, age: age, ageElle: null, ageLui: null, ville: ville || 'Chartres', type: 'solo', genre: (genre === 'Un homme' ? 'homme' : 'femme') };
       }
-      location.href = '/physique';
+      if (!sb) { toast('Connexion au service impossible pour le moment. Réessayez plus tard.'); return; }
+      var btnC = document.getElementById('btn-continuer');
+      btnC.style.opacity = '.6';
+      sb.auth.signUp({ email: email, password: motDePasse }).then(function (res) {
+        if (res.error) {
+          btnC.style.opacity = '';
+          toast(res.error.message.indexOf('already registered') !== -1 || res.error.message.indexOf('already been registered') !== -1
+            ? 'Un compte existe déjà avec cet email.' : 'Inscription impossible : ' + res.error.message);
+          return;
+        }
+        ecrireProfil(donnees);
+        var utilisateur = res.data.user;
+        if (utilisateur) {
+          sb.from('profiles').update({
+            pseudo: donnees.pseudo, age: donnees.age, age_elle: donnees.ageElle, age_lui: donnees.ageLui,
+            ville: donnees.ville, type: donnees.type, genre: donnees.genre
+          }).eq('id', utilisateur.id).then(function () {});
+        }
+        location.href = '/physique';
+      });
+    });
+  }
+
+  /* ---- connexion : compte existant ---- */
+  if (page === '/connexion') {
+    var btnConn = document.getElementById('btn-connexion');
+    var erreurConn = document.getElementById('erreur-connexion');
+    if (btnConn) btnConn.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      var email = (document.getElementById('email-connexion').value || '').trim();
+      var mdp = document.getElementById('mdp-connexion').value || '';
+      if (erreurConn) erreurConn.style.display = 'none';
+      if (!email || !mdp) { toast('Indiquez votre email et votre mot de passe.'); return; }
+      if (!sb) { toast('Connexion au service impossible pour le moment. Réessayez plus tard.'); return; }
+      btnConn.style.opacity = '.6';
+      sb.auth.signInWithPassword({ email: email, password: mdp }).then(function (res) {
+        btnConn.style.opacity = '';
+        if (res.error) {
+          if (erreurConn) { erreurConn.textContent = 'Email ou mot de passe incorrect.'; erreurConn.style.display = ''; }
+          return;
+        }
+        sb.from('profiles').select('*').eq('id', res.data.user.id).single().then(function (r) {
+          if (r.data) {
+            ecrireProfil({
+              pseudo: r.data.pseudo, age: r.data.age, ageElle: r.data.age_elle, ageLui: r.data.age_lui,
+              ville: r.data.ville, type: r.data.type, genre: r.data.genre,
+              description: r.data.description, physique: r.data.physique || {}, verifie: r.data.verifie
+            });
+          }
+          location.href = '/decouvrir';
+        });
+      });
     });
   }
 

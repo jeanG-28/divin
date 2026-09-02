@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E0C0D">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Divin">
+<meta name="format-detection" content="telephone=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Connexion · Divin</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icone-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/app.js" defer></script>
+</head>
+<body>
+<div class="cadre">
+
+<div class="ecran">
+  <div class="barre"><a class="retour" href="/"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A9093" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ><path d="M15 5 L8 12 L15 19"/></svg></a></div>
+  <div class="corps">
+    <h1 class="titre">Ravi de vous revoir</h1>
+    <div class="txt">Connectez-vous pour retrouver votre profil.</div>
+
+    <div class="bloc">
+      <input class="champ" type="email" autocomplete="email" placeholder="Votre email" id="email-connexion">
+      <input class="champ" type="password" autocomplete="current-password" placeholder="Mot de passe" id="mdp-connexion">
+      <div class="txt--petit" id="erreur-connexion" style="color:#C99089;display:none;"></div>
+    </div>
+  </div>
+  <div class="pied"><button class="bouton" id="btn-connexion" style="width:100%;">Se connecter</button></div>
+</div>
+
+</div>
+</body>
+</html>

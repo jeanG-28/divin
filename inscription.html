@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="/app.js" defer></script>
 </head>
 <body>
@@ -57,6 +58,12 @@
     </div>
 
         <div class="bloc">
+      <div class="legende">Votre compte</div>
+      <input class="champ" type="email" autocomplete="email" placeholder="Votre email" id="email">
+      <input class="champ" type="password" autocomplete="new-password" placeholder="Mot de passe (6 caractères minimum)" id="mot-de-passe">
+    </div>
+
+    <div class="bloc">
       <div class="legende">Vos informations</div>
       <input class="champ" type="text" autocomplete="off" placeholder="Votre pseudo" id="pseudo">
       <div class="duo" id="duo-age-couple" style="display:none;">
