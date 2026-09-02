@@ -13,19 +13,49 @@ if ('serviceWorker' in navigator) {
 
 var SUPABASE_URL = 'https://tsbllhsphusqnubvxyug.supabase.co';
 var SUPABASE_KEY = 'sb_publishable_3xQeMvR3Zw2u2VNFDpTzDw_7fE6jYHz';
-// Empeche qu'une connexion dans un autre onglet (compte different) ecrase silencieusement
-// la session de celui-ci : chaque onglet garde son propre compte connecte jusqu'a son
-// prochain chargement de page. La connexion reste memorisee (localStorage) normalement.
-var RealBroadcastChannel = window.BroadcastChannel;
-if (RealBroadcastChannel) {
-  window.BroadcastChannel = function () {
-    return { postMessage: function () {}, close: function () {}, addEventListener: function () {}, removeEventListener: function () {} };
+
+// Isole la connexion de cet onglet : au premier chargement, il recupere la derniere
+// connexion faite (sur cet appareil, dans n'importe quel onglet) — la connexion reste
+// donc memorisee normalement. Mais une fois charge, une connexion faite dans un AUTRE
+// onglet (compte different) ne vient plus jamais remplacer silencieusement sa session.
+function creerStockageIsolePourCetOnglet() {
+  var idOnglet;
+  try {
+    idOnglet = sessionStorage.getItem('divin.idOnglet');
+    if (!idOnglet) {
+      idOnglet = 'o' + Date.now() + Math.random().toString(36).slice(2);
+      sessionStorage.setItem('divin.idOnglet', idOnglet);
+    }
+  } catch (e) { idOnglet = 'o' + Date.now(); }
+  var clePrivee = function (cle) { return 'divin.priv.' + idOnglet + '.' + cle; };
+  return {
+    getItem: function (cle) {
+      try {
+        var v = localStorage.getItem(clePrivee(cle));
+        if (v !== null) return v;
+        var partage = localStorage.getItem(cle);
+        if (partage !== null) localStorage.setItem(clePrivee(cle), partage);
+        return partage;
+      } catch (e) { return null; }
+    },
+    setItem: function (cle, valeur) {
+      try {
+        localStorage.setItem(clePrivee(cle), valeur);
+        localStorage.setItem(cle, valeur);
+      } catch (e) {}
+    },
+    removeItem: function (cle) {
+      try {
+        localStorage.removeItem(clePrivee(cle));
+        localStorage.removeItem(cle);
+      } catch (e) {}
+    }
   };
 }
+
 var sb = (typeof supabase !== 'undefined' && supabase.createClient)
-  ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+  ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { storage: creerStockageIsolePourCetOnglet() } })
   : null;
-if (RealBroadcastChannel) window.BroadcastChannel = RealBroadcastChannel;
 
 function synchroniserProfil() {
   if (!sb) return;
