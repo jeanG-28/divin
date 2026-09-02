@@ -13,9 +13,19 @@ if ('serviceWorker' in navigator) {
 
 var SUPABASE_URL = 'https://tsbllhsphusqnubvxyug.supabase.co';
 var SUPABASE_KEY = 'sb_publishable_3xQeMvR3Zw2u2VNFDpTzDw_7fE6jYHz';
+// Empeche qu'une connexion dans un autre onglet (compte different) ecrase silencieusement
+// la session de celui-ci : chaque onglet garde son propre compte connecte jusqu'a son
+// prochain chargement de page. La connexion reste memorisee (localStorage) normalement.
+var RealBroadcastChannel = window.BroadcastChannel;
+if (RealBroadcastChannel) {
+  window.BroadcastChannel = function () {
+    return { postMessage: function () {}, close: function () {}, addEventListener: function () {}, removeEventListener: function () {} };
+  };
+}
 var sb = (typeof supabase !== 'undefined' && supabase.createClient)
   ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
   : null;
+if (RealBroadcastChannel) window.BroadcastChannel = RealBroadcastChannel;
 
 function synchroniserProfil() {
   if (!sb) return;
@@ -984,6 +994,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  var ORIENTATION_SLUG = { 'Hétéro': 'hetero', 'Bi': 'bi', 'Bi-curieux(se)': 'bi', 'Homo': 'homo', 'Pan': 'pan' };
+  function orientationDe(profilReel) {
+    var phys = profilReel.physique || {};
+    var det = profilReel.type === 'couple'
+      ? ((phys.elle && phys.elle.details && phys.elle.details.Orientation) || (phys.lui && phys.lui.details && phys.lui.details.Orientation))
+      : (phys.solo && phys.solo.details && phys.solo.details.Orientation);
+    return ORIENTATION_SLUG[det] || 'hetero';
+  }
+
   /* ---- decouvrir : vrais membres inscrits, en plus des profils de demo ---- */
   if (page === '/decouvrir' && sb) {
     sb.auth.getSession().then(function (res) {
@@ -1005,6 +1024,8 @@ document.addEventListener('DOMContentLoaded', function () {
           a.className = 'carte';
           a.href = '/profil?u=' + p.id;
           a.setAttribute('data-type', p.type === 'couple' ? 'couple' : (p.genre === 'homme' ? 'solo-h' : 'solo-f'));
+          a.setAttribute('data-orientation', orientationDe(p));
+          a.setAttribute('data-dispo', 'non');
           var teinte = 't' + ((i % 4) + 1);
           var bits = [];
           if (p.type === 'couple' && p.age_elle && p.age_lui) bits.push(p.age_elle + ' et ' + p.age_lui + ' ans');
