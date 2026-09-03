@@ -66,7 +66,7 @@ function synchroniserProfil() {
     sb.from('profiles').update({
       pseudo: p.pseudo, age: p.age, age_elle: p.ageElle, age_lui: p.ageLui,
       ville: p.ville, type: p.type, genre: p.genre, description: p.description,
-      physique: p.physique || {}, verifie: !!p.verifie
+            physique: p.physique || {}
     }).eq('id', session.user.id).then(function () {});
   });
 }
@@ -601,35 +601,92 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  /* ---- vérification : séquence simulée ---- */
-  if (page === '/verification') {
-    var btnCam = document.getElementById('btn-camera');
-    var geste = document.getElementById('cadre-geste');
-    if (btnCam && profil.verifie) {
-      if (geste) geste.innerHTML = '<div style="font-size:15px;font-weight:700;color:#8CB79A;padding:26px 10px;text-align:center;">Profil déjà vérifié ✓<br><span style="font-size:12px;color:#9A9093;font-weight:400;">La vérification ne se refait pas après une modification du profil.</span></div>';
-      btnCam.textContent = 'Continuer';
-      btnCam.addEventListener('click', function (ev) { ev.preventDefault(); location.href = '/decouvrir'; });
-    } else if (btnCam) {
-      btnCam.addEventListener('click', function (ev) {
-        ev.preventDefault();
-        if (btnCam.classList.contains('fait')) return;
-        btnCam.classList.add('fait');
-        btnCam.textContent = 'Photo prise ✓';
-        toast('Photo envoyée. Contrôle en cours…');
-        setTimeout(function () {
-          ecrireProfil({ verifie: true });
-          synchroniserProfil();
-          if (geste) geste.innerHTML = '<div style="font-size:15px;font-weight:700;color:#8CB79A;padding:26px 10px;text-align:center;">Profil vérifié ✓<br><span style="font-size:12px;color:#9A9093;font-weight:400;">(simulé — dans la vraie application, une personne contrôle sous 24 h)</span></div>';
-          btnCam.textContent = 'Continuer';
-          btnCam.classList.remove('fait');
-          btnCam.addEventListener('click', function () { location.href = '/decouvrir'; }, { once: true });
-        }, 1600);
-      });
-    }
-  }
+    /* ---- vérification : pièce d'identité + selfie, contrôle automatique réel (Stripe Identity) ---- */
+    if (page === '/verification') {
+          var btnCam = document.getElementById('btn-camera');
+          var geste = document.getElementById('cadre-geste');
+          var stripeChargee = null;
 
-  /* ---- mon profil : affiche VOS données ---- */
-  if (page === '/moi') {
+          function afficherEtatVerif(html) { if (geste) geste.innerHTML = html; }
+
+          function chargerStripeJs() {
+                  if (stripeChargee) return stripeChargee;
+                  stripeChargee = new Promise(function (resolve, reject) {
+                            if (window.Stripe) { resolve(window.Stripe); return; }
+                            var s = document.createElement('script');
+                            s.src = 'https://js.stripe.com/v3/';
+                            s.onload = function () { resolve(window.Stripe); };
+                            s.onerror = reject;
+                            document.head.appendChild(s);
+                  });
+                  return stripeChargee;
+          }
+
+          function attendreConfirmationServeur(uid, tentatives) {
+                  if (!sb) return;
+                  sb.from('profiles').select('verifie').eq('id', uid).single().then(function (r) {
+                            if (r.data && r.data.verifie) {
+                                        ecrireProfil({ verifie: true });
+                                        afficherEtatVerif('<div style="font-size:15px;font-weight:700;color:#8CB79A;padding:26px 10px;text-align:center;">Profil vérifié ✓</div>');
+                                        btnCam.textContent = 'Continuer';
+                                        btnCam.classList.remove('fait');
+                                        btnCam.addEventListener('click', function (ev) { ev.preventDefault(); location.href = '/decouvrir'; }, { once: true });
+                                        return;
+                            }
+                            if (tentatives <= 0) {
+                                        afficherEtatVerif('<div style="font-size:14px;color:#B5ABAD;padding:20px 10px;text-align:center;">Contrôle toujours en cours — revenez dans quelques minutes.</div>');
+                                        btnCam.textContent = 'Vérifier à nouveau';
+                                        btnCam.classList.remove('fait');
+                                        return;
+                            }
+                            setTimeout(function () { attendreConfirmationServeur(uid, tentatives - 1); }, 2500);
+                  });
+          }
+
+          if (btnCam && profil.verifie) {
+                  afficherEtatVerif('<div style="font-size:15px;font-weight:700;color:#8CB79A;padding:26px 10px;text-align:center;">Profil déjà vérifié ✓<br><span style="font-size:12px;color:#9A9093;font-weight:400;">La vérification ne se refait pas après une modification du profil.</span></div>');
+                  btnCam.textContent = 'Continuer';
+                  btnCam.addEventListener('click', function (ev) { ev.preventDefault(); location.href = '/decouvrir'; });
+          } else if (btnCam) {
+                  btnCam.addEventListener('click', function (ev) {
+                            ev.preventDefault();
+                            if (btnCam.classList.contains('fait')) return;
+                            if (!sb) { toast('Connexion indisponible pour le moment.'); return; }
+                            sb.auth.getSession().then(function (res) {
+                                        var session = res.data.session;
+                                        if (!session) { toast('Connectez-vous pour vérifier votre profil.'); return; }
+                                        btnCam.classList.add('fait');
+                                        btnCam.textContent = 'Ouverture…';
+                                        Promise.all([
+                                                      chargerStripeJs(),
+                                                      fetch('/api/verification-creer', { method: 'POST', headers: { Authorization: 'Bearer ' + session.access_token } }).then(function (r) { return r.json(); })
+                                                    ]).then(function (resultats) {
+                                                      var StripeCtor = resultats[0], data = resultats[1];
+                                                      if (!data || !data.client_secret) { throw new Error((data && data.error) || 'indisponible'); }
+                                                      var stripeClient = StripeCtor(data.publishable_key);
+                                                      return stripeClient.verifyIdentity(data.client_secret);
+                                        }).then(function (result) {
+                                                      if (result && result.error) {
+                                                                      toast('Vérification annulée.');
+                                                                      btnCam.textContent = "Ouvrir l'appareil photo";
+                                                                      btnCam.classList.remove('fait');
+                                                                      return;
+                                                      }
+                                                      btnCam.textContent = 'Contrôle en cours…';
+                                                      afficherEtatVerif('<div style="font-size:14px;color:#B5ABAD;padding:20px 10px;text-align:center;">Contrôle automatique en cours…</div>');
+                                                      attendreConfirmationServeur(session.user.id, 20);
+                                        }).catch(function () {
+                                                      toast('Vérification indisponible pour le moment. Réessayez plus tard.');
+                                                      btnCam.textContent = "Ouvrir l'appareil photo";
+                                                      btnCam.classList.remove('fait');
+                                        });
+                            });
+                  });
+          }
+    }
+
+    /* ---- mon profil : affiche VOS données ---- */
+    if (page === '/moi') {
     var nomEl = document.getElementById('moi-nom');
     var metaEl = document.getElementById('moi-meta');
     if (nomEl && profil.pseudo) nomEl.childNodes[0].nodeValue = profil.pseudo + ' ';
