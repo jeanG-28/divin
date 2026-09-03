@@ -807,32 +807,72 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  /* ---- /moi : modifier son pseudo (reserve a l'admin pour le moment) ---- */
-  function ouvrirEditionPseudo(pseudoActuel, userId) {
+  /* ---- /moi : modifier ses informations (reserve a l'admin pour le moment) ---- */
+  function ouvrirEditionInfosAdmin(p, userId) {
+    var estCoupleAdmin = p.type === 'couple';
+    var champAge = estCoupleAdmin
+      ? '<div style="display:flex;gap:10px;">' +
+        '<input id="champ-age-elle-admin" type="number" min="18" max="99" placeholder="Âge elle" style="flex:1;background:#141010;border:1px solid #2C2729;border-radius:9px;padding:11px 12px;color:#EFE9EA;font-size:14px;" />' +
+        '<input id="champ-age-lui-admin" type="number" min="18" max="99" placeholder="Âge lui" style="flex:1;background:#141010;border:1px solid #2C2729;border-radius:9px;padding:11px 12px;color:#EFE9EA;font-size:14px;" />' +
+        '</div>'
+      : '<input id="champ-age-admin" type="number" min="18" max="99" placeholder="Âge" style="background:#141010;border:1px solid #2C2729;border-radius:9px;padding:11px 12px;color:#EFE9EA;font-size:14px;" />';
     var overlay = document.createElement('div');
     overlay.style.cssText = 'position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:20px;';
     overlay.innerHTML = '<div style="width:100%;max-width:340px;background:#1C1517;border:1px solid #2C2729;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px;">' +
-      '<b style="font-size:15px;color:#EFE9EA;">Modifier mon pseudo</b>' +
-      '<input id="champ-pseudo-admin" type="text" maxlength="30" style="background:#141010;border:1px solid #2C2729;border-radius:9px;padding:11px 12px;color:#EFE9EA;font-size:14px;" />' +
+      '<b style="font-size:15px;color:#EFE9EA;">Modifier mes informations</b>' +
+      '<input id="champ-pseudo-admin" type="text" maxlength="30" placeholder="Pseudo" style="background:#141010;border:1px solid #2C2729;border-radius:9px;padding:11px 12px;color:#EFE9EA;font-size:14px;" />' +
+      '<input id="champ-ville-admin" type="text" maxlength="40" placeholder="Ville" style="background:#141010;border:1px solid #2C2729;border-radius:9px;padding:11px 12px;color:#EFE9EA;font-size:14px;" />' +
+      champAge +
       '<div style="display:flex;gap:10px;">' +
-      '<button id="annuler-pseudo-admin" type="button" style="flex:1;padding:11px;border-radius:9px;border:1px solid #2C2729;background:transparent;color:#B5ABAD;font-size:13.5px;">Annuler</button>' +
-      '<button id="valider-pseudo-admin" type="button" style="flex:1;padding:11px;border-radius:9px;border:none;background:#C08B77;color:#17110F;font-weight:600;font-size:13.5px;">Enregistrer</button>' +
+      '<button id="annuler-infos-admin" type="button" style="flex:1;padding:11px;border-radius:9px;border:1px solid #2C2729;background:transparent;color:#B5ABAD;font-size:13.5px;">Annuler</button>' +
+      '<button id="valider-infos-admin" type="button" style="flex:1;padding:11px;border-radius:9px;border:none;background:#C08B77;color:#17110F;font-weight:600;font-size:13.5px;">Enregistrer</button>' +
       '</div></div>';
     document.body.appendChild(overlay);
-    var champ = overlay.querySelector('#champ-pseudo-admin');
-    champ.value = pseudoActuel || '';
-    champ.focus();
-    overlay.querySelector('#annuler-pseudo-admin').addEventListener('click', function () { overlay.remove(); });
-    overlay.querySelector('#valider-pseudo-admin').addEventListener('click', function () {
-      var nouveau = champ.value.trim();
-      if (!nouveau) { toast('Choisissez un pseudo.'); return; }
-      sb.from('profiles').update({ pseudo: nouveau }).eq('id', userId).then(function (r) {
+    var champPseudo = overlay.querySelector('#champ-pseudo-admin');
+    var champVille = overlay.querySelector('#champ-ville-admin');
+    champPseudo.value = p.pseudo || '';
+    champVille.value = p.ville || '';
+    if (estCoupleAdmin) {
+      overlay.querySelector('#champ-age-elle-admin').value = p.age_elle || '';
+      overlay.querySelector('#champ-age-lui-admin').value = p.age_lui || '';
+    } else {
+      overlay.querySelector('#champ-age-admin').value = p.age || '';
+    }
+    champPseudo.focus();
+    overlay.querySelector('#annuler-infos-admin').addEventListener('click', function () { overlay.remove(); });
+    overlay.querySelector('#valider-infos-admin').addEventListener('click', function () {
+      var nouveauPseudo = champPseudo.value.trim();
+      var nouvelleVille = champVille.value.trim();
+      if (!nouveauPseudo) { toast('Choisissez un pseudo.'); return; }
+      var maj = { pseudo: nouveauPseudo, ville: nouvelleVille || null };
+      var majLocal = { pseudo: nouveauPseudo, ville: nouvelleVille || '' };
+      if (estCoupleAdmin) {
+        var ae = parseInt(overlay.querySelector('#champ-age-elle-admin').value, 10) || null;
+        var al = parseInt(overlay.querySelector('#champ-age-lui-admin').value, 10) || null;
+        maj.age_elle = ae; maj.age_lui = al; maj.age = (ae && al) ? Math.min(ae, al) : null;
+        majLocal.ageElle = ae; majLocal.ageLui = al; majLocal.age = maj.age;
+      } else {
+        var ag = parseInt(overlay.querySelector('#champ-age-admin').value, 10) || null;
+        maj.age = ag;
+        majLocal.age = ag;
+      }
+      sb.from('profiles').update(maj).eq('id', userId).then(function (r) {
         if (r.error) { toast('Erreur lors de la mise à jour.'); return; }
-        ecrireProfil({ pseudo: nouveau });
+        profil = ecrireProfil(majLocal);
         var nomEl = document.getElementById('moi-nom');
-        if (nomEl) nomEl.childNodes[0].nodeValue = nouveau + ' ';
+        if (nomEl) nomEl.childNodes[0].nodeValue = nouveauPseudo + ' ';
+        var metaEl = document.getElementById('moi-meta');
+        if (metaEl) {
+          var bouts = [];
+          if (profil.type === 'couple' && profil.ageElle && profil.ageLui) bouts.push(profil.ageElle + ' et ' + profil.ageLui + ' ans');
+          else bouts.push(profil.age ? profil.age + ' ans' : 'Âge non renseigné');
+          bouts.push(profil.ville || 'Chartres');
+          bouts.push(profil.type === 'couple' ? 'profil couple' : 'profil solo');
+          bouts.push(profil.verifie ? 'vérifié ✓' : 'non vérifié');
+          metaEl.textContent = bouts.join(' · ');
+        }
         overlay.remove();
-        toast('Pseudo mis à jour.');
+        toast('Informations mises à jour.');
       });
     });
   }
@@ -842,11 +882,11 @@ document.addEventListener('DOMContentLoaded', function () {
       sb.auth.getSession().then(function (res) {
         var session = res.data.session;
         if (!session) return;
-        sb.from('profiles').select('admin, pseudo').eq('id', session.user.id).single().then(function (r) {
+        sb.from('profiles').select('admin, pseudo, ville, age, age_elle, age_lui, type').eq('id', session.user.id).single().then(function (r) {
           if (r.data && r.data.admin) {
             ligneModifierPseudo.style.display = '';
             ligneModifierPseudo.addEventListener('click', function () {
-              ouvrirEditionPseudo(r.data.pseudo, session.user.id);
+              ouvrirEditionInfosAdmin(r.data, session.user.id);
             });
           }
         });
@@ -1336,6 +1376,8 @@ document.addEventListener('DOMContentLoaded', function () {
         bits.push(p.type === 'couple' ? 'couple' : (p.genre === 'homme' ? 'homme seul' : 'femme seule'));
         metaP.textContent = bits.join(' · ');
       }
+      var badgeAdminP = document.getElementById('profil-badge-admin');
+      if (badgeAdminP) badgeAdminP.style.display = p.admin ? '' : 'none';
       var presP = document.getElementById('profil-presentation');
       if (presP) presP.textContent = p.description || 'Ce membre n’a pas encore ajouté de description.';
       var bandoP = document.querySelector('.bandeau');
@@ -1461,8 +1503,11 @@ document.addEventListener('DOMContentLoaded', function () {
       var session = res.data.session;
       if (!session) return;
       moiIdR = session.user.id;
-      sb.from('profiles').select('pseudo').eq('id', uAutre).single().then(function (r) {
-        if (cNomR) cNomR.textContent = (r.data && r.data.pseudo) ? r.data.pseudo : 'Membre';
+      sb.from('profiles').select('pseudo, admin').eq('id', uAutre).single().then(function (r) {
+        var nomConv = (r.data && r.data.pseudo) ? r.data.pseudo : 'Membre';
+        if (cNomR && cNomR.firstChild) cNomR.firstChild.nodeValue = nomConv;
+        var badgeConv = document.getElementById('conv-badge-admin');
+        if (badgeConv) badgeConv.style.display = (r.data && r.data.admin) ? '' : 'none';
       });
       chargerMessagesReels();
       setInterval(chargerMessagesReels, 4000);
