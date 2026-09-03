@@ -807,6 +807,41 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  /* ---- /moi : qui a visite mon profil ---- */
+  if (page === '/moi' && sb) {
+    var listeVisiteurs = document.getElementById('liste-visiteurs');
+    if (listeVisiteurs) {
+      sb.auth.getSession().then(function (res) {
+        var session = res.data.session;
+        if (!session) return;
+        sb.from('vues_profil').select('viewer_id, vu_a').eq('profil_id', session.user.id).order('vu_a', { ascending: false }).limit(20).then(function (r) {
+          var lignesVisites = r.data || [];
+          if (!lignesVisites.length) {
+            listeVisiteurs.innerHTML = '<div style="padding:14px 0;font-size:12.5px;color:#6E6467;text-align:center;">Personne n’a encore visité votre profil.</div>';
+            return;
+          }
+          var idsVisiteurs = lignesVisites.map(function (l) { return l.viewer_id; });
+          sb.from('profiles').select('id, pseudo').in('id', idsVisiteurs).then(function (rp) {
+            var nomsVisiteurs = {};
+            (rp.data || []).forEach(function (p) { nomsVisiteurs[p.id] = p.pseudo || 'Membre'; });
+            listeVisiteurs.innerHTML = '';
+            lignesVisites.forEach(function (l) {
+              var lv = document.createElement('a');
+              lv.className = 'ligne';
+              lv.href = '/profil?u=' + l.viewer_id;
+              var d = new Date(l.vu_a);
+              var heureVue = d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' }) + ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+              lv.innerHTML = '<span class="ligne__nom"></span><span class="ligne__val" style="color:#9A9093;font-size:11.5px;"></span>';
+              lv.querySelector('.ligne__nom').textContent = nomsVisiteurs[l.viewer_id] || 'Membre';
+              lv.querySelector('.ligne__val').textContent = heureVue;
+              listeVisiteurs.appendChild(lv);
+            });
+          });
+        });
+      });
+    }
+  }
+
   /* ---- /moi : la carte club depend du statut du dossier ---- */
   if (page === '/moi') {
     var carteClub = document.getElementById('carte-club');
@@ -1226,6 +1261,14 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ---- profil reel (vrai membre inscrit, parametre ?u=) ---- */
   if (page === '/profil' && param('u') && sb) {
     var uReel = param('u');
+    sb.auth.getSession().then(function (resVue) {
+      var sessionVue = resVue.data.session;
+      if (!sessionVue || sessionVue.user.id === uReel) return;
+      sb.from('profiles').select('admin').eq('id', sessionVue.user.id).single().then(function (ra) {
+        if (ra.data && ra.data.admin) return;
+        sb.from('vues_profil').upsert({ viewer_id: sessionVue.user.id, profil_id: uReel, vu_a: new Date().toISOString() }).then(function () {});
+      });
+    });
     sb.from('profiles').select('*').eq('id', uReel).single().then(function (r) {
       if (!r.data) return;
       var p = r.data;
