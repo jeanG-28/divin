@@ -807,6 +807,53 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  /* ---- /moi : modifier son pseudo (reserve a l'admin pour le moment) ---- */
+  function ouvrirEditionPseudo(pseudoActuel, userId) {
+    var overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:20px;';
+    overlay.innerHTML = '<div style="width:100%;max-width:340px;background:#1C1517;border:1px solid #2C2729;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px;">' +
+      '<b style="font-size:15px;color:#EFE9EA;">Modifier mon pseudo</b>' +
+      '<input id="champ-pseudo-admin" type="text" maxlength="30" style="background:#141010;border:1px solid #2C2729;border-radius:9px;padding:11px 12px;color:#EFE9EA;font-size:14px;" />' +
+      '<div style="display:flex;gap:10px;">' +
+      '<button id="annuler-pseudo-admin" type="button" style="flex:1;padding:11px;border-radius:9px;border:1px solid #2C2729;background:transparent;color:#B5ABAD;font-size:13.5px;">Annuler</button>' +
+      '<button id="valider-pseudo-admin" type="button" style="flex:1;padding:11px;border-radius:9px;border:none;background:#C08B77;color:#17110F;font-weight:600;font-size:13.5px;">Enregistrer</button>' +
+      '</div></div>';
+    document.body.appendChild(overlay);
+    var champ = overlay.querySelector('#champ-pseudo-admin');
+    champ.value = pseudoActuel || '';
+    champ.focus();
+    overlay.querySelector('#annuler-pseudo-admin').addEventListener('click', function () { overlay.remove(); });
+    overlay.querySelector('#valider-pseudo-admin').addEventListener('click', function () {
+      var nouveau = champ.value.trim();
+      if (!nouveau) { toast('Choisissez un pseudo.'); return; }
+      sb.from('profiles').update({ pseudo: nouveau }).eq('id', userId).then(function (r) {
+        if (r.error) { toast('Erreur lors de la mise à jour.'); return; }
+        ecrireProfil({ pseudo: nouveau });
+        var nomEl = document.getElementById('moi-nom');
+        if (nomEl) nomEl.childNodes[0].nodeValue = nouveau + ' ';
+        overlay.remove();
+        toast('Pseudo mis à jour.');
+      });
+    });
+  }
+  if (page === '/moi' && sb) {
+    var ligneModifierPseudo = document.getElementById('ligne-modifier-pseudo');
+    if (ligneModifierPseudo) {
+      sb.auth.getSession().then(function (res) {
+        var session = res.data.session;
+        if (!session) return;
+        sb.from('profiles').select('admin, pseudo').eq('id', session.user.id).single().then(function (r) {
+          if (r.data && r.data.admin) {
+            ligneModifierPseudo.style.display = '';
+            ligneModifierPseudo.addEventListener('click', function () {
+              ouvrirEditionPseudo(r.data.pseudo, session.user.id);
+            });
+          }
+        });
+      });
+    }
+  }
+
   /* ---- /moi : qui a visite mon profil ---- */
   if (page === '/moi' && sb) {
     var listeVisiteurs = document.getElementById('liste-visiteurs');
