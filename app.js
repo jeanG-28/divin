@@ -605,7 +605,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (page === '/verification') {
           var btnCam = document.getElementById('btn-camera');
           var geste = document.getElementById('cadre-geste');
-          var stripeChargee = null;
+          var stripeChargee = null; var enAttenteRevision = null;
 
           function afficherEtatVerif(html) { if (geste) geste.innerHTML = html; }
 
@@ -625,7 +625,7 @@ document.addEventListener('DOMContentLoaded', function () {
           function attendreConfirmationServeur(uid, tentatives) {
                   if (!sb) return;
                   sb.from('profiles').select('verifie').eq('id', uid).single().then(function (r) {
-                            if (r.data && r.data.verifie) {
+                            if (r.data && r.data.verifie) { enAttenteRevision = null;
                                         ecrireProfil({ verifie: true });
                                         afficherEtatVerif('<div style="font-size:15px;font-weight:700;color:#8CB79A;padding:26px 10px;text-align:center;">Profil vérifié ✓</div>');
                                         btnCam.textContent = 'Continuer';
@@ -633,7 +633,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         btnCam.addEventListener('click', function (ev) { ev.preventDefault(); location.href = '/decouvrir'; }, { once: true });
                                         return;
                             }
-                            if (tentatives <= 0) {
+                            if (tentatives <= 0) { enAttenteRevision = uid;
                                         afficherEtatVerif('<div style="font-size:14px;color:#B5ABAD;padding:20px 10px;text-align:center;">Contrôle toujours en cours — revenez dans quelques minutes.</div>');
                                         btnCam.textContent = 'Vérifier à nouveau';
                                         btnCam.classList.remove('fait');
@@ -650,7 +650,7 @@ document.addEventListener('DOMContentLoaded', function () {
           } else if (btnCam) {
                   btnCam.addEventListener('click', function (ev) {
                             ev.preventDefault();
-                            if (btnCam.classList.contains('fait')) return;
+                            if (btnCam.classList.contains('fait')) return; if (enAttenteRevision) { var uidRevision = enAttenteRevision; btnCam.classList.add('fait'); btnCam.textContent = 'Contrôle en cours…'; afficherEtatVerif('<div style="font-size:14px;color:#B5ABAD;padding:20px 10px;text-align:center;">Contrôle automatique en cours…</div>'); attendreConfirmationServeur(uidRevision, 20); return; }
                             if (!sb) { toast('Connexion indisponible pour le moment.'); return; }
                             sb.auth.getSession().then(function (res) {
                                         var session = res.data.session;
